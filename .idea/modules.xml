@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QsMain.iml" filepath="$PROJECT_DIR$/QsMain.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manager_account/manager_account.iml" filepath="$PROJECT_DIR$/manager_account/manager_account.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ui_account/ui_account.iml" filepath="$PROJECT_DIR$/ui_account/ui_account.iml" />
     </modules>
   </component>
 </project>
