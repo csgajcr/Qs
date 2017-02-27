@@ -32,5 +32,11 @@ dependencies {
     compile 'cn.bmob.android:http-legacy:1.0'
     compile 'com.android.support:recyclerview-v7:24.2.0'
 
+    compile project(':common')
+    compile project(':manager_account')
+    compile project(':ui_account');
+
+    compile project(':common_resource')
+
 
 }
