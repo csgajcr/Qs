@@ -33,4 +33,5 @@ dependencies {
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     compile 'cn.bmob.android:http-legacy:1.0'
     compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile 'org.xutils:xutils:3.3.42'
 }

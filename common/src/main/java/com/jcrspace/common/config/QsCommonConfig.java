@@ -5,6 +5,6 @@ package com.jcrspace.common.config;
  */
 
 public class QsCommonConfig {
-    public static final String BMOB_APP_ID = "";
+    public static final String BMOB_APP_ID = "855af58c3416e7197f924e492a8407e3";
     public static final boolean DEBUG = true;
 }
