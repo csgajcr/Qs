@@ -9,17 +9,17 @@ import java.util.Stack;
  * Created by jiangchaoren on 2017/3/10.
  */
 
-public class ActivityManager {
+public class AppManager {
 
     private static Stack<Activity> activityStack;
-    private static ActivityManager instance;
+    private static AppManager instance;
 
-    public ActivityManager() {
+    public AppManager() {
     }
 
-    public static synchronized ActivityManager getInstance() {
+    public static synchronized AppManager getInstance() {
         if (instance==null){
-            instance=new ActivityManager();
+            instance=new AppManager();
         }
         return instance;
     }
