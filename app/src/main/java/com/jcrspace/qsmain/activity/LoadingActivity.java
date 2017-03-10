@@ -1,5 +1,6 @@
 package com.jcrspace.qsmain.activity;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -8,12 +9,14 @@ import com.jcrspace.qsmain.R;
 
 import cn.bmob.v3.Bmob;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         Bmob.initialize(this, QsCommonConfig.BMOB_APP_ID);
+        
+
     }
 }
