@@ -18,7 +18,7 @@ public class UrlBuilder {
         String url = rootPath + path;
         UrlBuilder urlBuilder = new UrlBuilder(url);
         urlBuilder.activity = activity;
-        return new UrlBuilder();
+        return urlBuilder;
     }
 
     private Uri.Builder uriBuilder;
