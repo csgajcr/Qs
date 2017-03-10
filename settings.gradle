@@ -1,1 +1,1 @@
-include ':app', ':manager_account', ':ui_account'
+include ':app', ':manager_account', ':ui_account', ':common', ':common_resource'

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Common_Resource</string>
+    <string name="host">qingsuan.com</string>
+    <string name="scheme">qingsuan</string>
+</resources>
