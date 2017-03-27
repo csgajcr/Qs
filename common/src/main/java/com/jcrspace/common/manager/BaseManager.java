@@ -4,5 +4,5 @@ package com.jcrspace.common.manager;
  * Created by jiangchaoren on 2017/3/10.
  */
 
-public class BaseManager {
+public abstract class BaseManager {
 }

@@ -1,13 +1,7 @@
 package com.jcrspace.common.lander;
-
 import android.content.Context;
-import android.text.TextUtils;
-
-import com.facebook.stetho.common.StringUtil;
 import com.jcrspace.common.utils.DbUtils;
-
 import org.xutils.DbManager;
-
 import java.util.HashMap;
 import java.util.Map;
 
