@@ -13,14 +13,19 @@ import android.widget.TextView;
 
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseAppCompatActivity;
+import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.common.view.BottomNavigationViewEx;
 import com.jcrspace.manager_account.AccountManager;
 import com.jcrspace.manager_account.model.AccountDO;
 import com.jcrspace.manager_account.model.AccountModel;
 import com.jcrspace.qsmain.R;
+import com.jcrspace.ui_account.fragment.HomeFragment;
+import com.jcrspace.ui_bill.fragment.RecentFragment;
+import com.jcrspace.ui_plan.fragment.PlanFragment;
 
 import org.xutils.ex.DbException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseAppCompatActivity {
@@ -28,6 +33,7 @@ public class MainActivity extends BaseAppCompatActivity {
     private TextView mTextMessage;
     private BottomNavigationViewEx navigation;
     private ViewPager vpContent;
+    private ViewPagerAdapter pagerAdapter;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -71,7 +77,13 @@ public class MainActivity extends BaseAppCompatActivity {
 
     private void initData(){
         test();
-
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new RecentFragment());
+        fragments.add(new PlanFragment());
+        fragments.add(new HomeFragment());
+        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
+        vpContent.setAdapter(pagerAdapter);
+        navigation.setupWithViewPager(vpContent,true);
     }
 
     private void test(){
