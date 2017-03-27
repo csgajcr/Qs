@@ -11,12 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.jcrspace.common.lander.UserLander;
+import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.common.view.BottomNavigationViewEx;
+import com.jcrspace.manager_account.AccountManager;
+import com.jcrspace.manager_account.model.AccountDO;
+import com.jcrspace.manager_account.model.AccountModel;
 import com.jcrspace.qsmain.R;
+
+import org.xutils.ex.DbException;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseAppCompatActivity {
 
     private TextView mTextMessage;
     private BottomNavigationViewEx navigation;
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         initData();
 
 
+
     }
 
     private void initView(){
@@ -62,6 +70,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData(){
+        test();
+
+    }
+
+    private void test(){
+        UserLander lander = new UserLander(this,"user0001");
+        AccountDO model = new AccountDO();
+        model.device_token = "1232131313";
+        model.last_login_time = 14333333333L;
+        model.name = "123";
+        model.nick_name = "asdsadasd";
+        try {
+            AccountManager.getInstance(lander).testCreate(model);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
 
     }
 

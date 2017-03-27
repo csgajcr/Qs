@@ -17,7 +17,6 @@ public class UserLander implements Lander {
 
     public UserLander(Context context, String aid) {
         this.context = context;
-        this.dbManager = dbManager;
         this.aid = aid;
     }
 

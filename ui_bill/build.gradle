@@ -1,16 +1,17 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
+
     defaultConfig {
-        applicationId "com.jcrspace.qsmain"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -25,17 +26,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-
-
-    compile project(':common')
-    compile project(':manager_account')
-    compile project(':ui_account');
-    compile project(':common_resource')
-    compile project(':manager_bill')
-    compile project(':ui_bill')
-    compile project(':manager_plan')
-    compile project(':ui_plan')
-    compile 'com.android.support:support-vector-drawable:25.2.0'
     testCompile 'junit:junit:4.12'
+
+    provided project(':manager_bill')
+    compile project(':common_resource')
 }

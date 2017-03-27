@@ -16,7 +16,7 @@ public class QsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG && QsCommonConfig.DEBUG){
+        if (QsCommonConfig.DEBUG){
             openDevMode();
         }
 

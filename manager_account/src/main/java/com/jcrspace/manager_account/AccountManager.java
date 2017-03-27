@@ -1,9 +1,14 @@
 package com.jcrspace.manager_account;
 
+import android.os.UserManager;
+
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.manager.BaseManager;
+import com.jcrspace.manager_account.model.AccountDO;
+import com.jcrspace.manager_account.model.AccountModel;
 
 import org.xutils.DbManager;
+import org.xutils.ex.DbException;
 
 /**
  * Created by jiangchaoren on 2017/2/27.
@@ -26,5 +31,9 @@ public class AccountManager extends BaseManager{
         dbManager = lander.getDbManager();
     }
 
+    public void testCreate(AccountDO accountDO) throws DbException {
+//        dbManager.saveOrUpdate(accountModel);
+        dbManager.save(accountDO);
+    }
 
 }
