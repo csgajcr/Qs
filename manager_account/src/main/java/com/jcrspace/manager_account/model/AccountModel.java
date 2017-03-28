@@ -5,7 +5,7 @@ import com.jcrspace.common.model.BaseModel;
 /**
  * Created by jiangchaoren on 2017/3/27.
  */
-
+@Deprecated
 public class AccountModel extends BaseModel {
     public String name;
     public String password;

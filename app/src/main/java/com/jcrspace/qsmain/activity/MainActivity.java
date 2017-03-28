@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.jcrspace.common.view.BottomNavigationViewEx;
 import com.jcrspace.manager_account.AccountManager;
 import com.jcrspace.manager_account.model.AccountDO;
 import com.jcrspace.manager_account.model.AccountModel;
+import com.jcrspace.manager_account.model.AccountSO;
 import com.jcrspace.qsmain.R;
 import com.jcrspace.ui_account.fragment.HomeFragment;
 import com.jcrspace.ui_bill.fragment.RecentFragment;
@@ -27,6 +29,9 @@ import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends BaseAppCompatActivity {
 
@@ -89,16 +94,23 @@ public class MainActivity extends BaseAppCompatActivity {
     private void test(){
         UserLander lander = new UserLander(this,"user0001");
         AccountDO model = new AccountDO();
-        model.device_token = "1232131313";
+        model.device_token = "189dasodh218";
         model.last_login_time = 14333333333L;
-        model.name = "123";
+        model.name = "123333";
         model.nick_name = "asdsadasd";
-        try {
-            AccountManager.getInstance(lander).testCreate(model);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
 
+
+//        try {
+//            AccountManager.getInstance(lander).updateUserInfo(model);
+//          AccountManager.getInstance(lander).deleteUserInfo();
+//          AccountManager.getInstance(lander).setUserInfo(model);
+
+//            AccountDO accountDO = AccountManager.getInstance(lander).readUserInfo();
+//            accountDO.id=1;
+
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

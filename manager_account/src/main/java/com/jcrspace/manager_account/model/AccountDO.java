@@ -13,6 +13,9 @@ public class AccountDO extends BaseDO {
     @Column(name = "id",isId = true)
     public int id;
 
+    @Column(name = "aid")
+    public int aid;
+
     @Column(name = "name")
     public String name;
 
@@ -38,5 +41,7 @@ public class AccountDO extends BaseDO {
 
     @Column(name = "nick_name")
     public String nick_name;
+
+
 
 }
