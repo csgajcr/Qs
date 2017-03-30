@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import cn.bmob.v3.BmobBatch;
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BatchResult;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListListener;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -45,17 +49,35 @@ public class BillManager extends BaseManager {
         return billDOs;
     }
 
+    public void saveBillList(List<BillDO> billDOs) throws DbException{
+        dbManager.save(billDOs);
+    }
+
     public void deleteBill(BillDO billDO) throws DbException{
         dbManager.delete(billDO);
     }
 
-    public void uploadAllToServer(QueryListListener listener) throws DbException{
+
+    public void uploadAllToServer(QueryListListener<BatchResult> listener) throws DbException{
         List<BillDO> billDOList = getBillList();
         List<BmobObject> billSOList = new ArrayList<>();
         for (BillDO billDO: billDOList){
             billSOList.add(convert(billDO));
         }
-        new BmobBatch().insertBatch(billSOList).doBatch(listener);
+        if (billSOList.size()>50){
+            for (int i=0;i<billSOList.size();i=i+50){
+                List<BmobObject> convertBillSOList;
+                if (billSOList.size()-i>=50){
+                    convertBillSOList = billSOList.subList(i,i+50);
+                } else {
+                    convertBillSOList = billSOList.subList(i,billSOList.size());
+                }
+                new BmobBatch().insertBatch(convertBillSOList).doBatch(listener);
+            }
+        } else {
+            new BmobBatch().insertBatch(billSOList).doBatch(listener);
+        }
+
     }
 
     public void uploadToServer(BillDO billDO, SaveListener listener){
@@ -63,8 +85,10 @@ public class BillManager extends BaseManager {
         so.save(listener);
     }
 
-    public void syncAllFromServer(){
-
+    public void getAllBillFromServer(int id, FindListener<BillSO> listener){
+        BmobQuery<BillSO> query = new BmobQuery<>();
+        query.addWhereEqualTo("id",id);
+        query.findObjects(listener);
     }
 
     public BillSO convert(BillDO billDO){
@@ -80,6 +104,18 @@ public class BillManager extends BaseManager {
         return so;
     }
 
+    public BillDO convert(BillSO so){
+        BillDO billDO = new BillDO();
+        billDO.bid = so.id;
+        billDO.comment = so.comment;
+        billDO.create_time = so.create_time;
+        billDO.money = so.money;
+        billDO.status = so.status;
+        billDO.title = so.title;
+        billDO.type = so.type;
+        billDO.user_id = so.user_id;
+        return billDO;
+    }
 
 
 

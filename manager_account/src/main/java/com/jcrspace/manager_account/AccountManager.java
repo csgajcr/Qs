@@ -55,7 +55,7 @@ public class AccountManager extends BaseManager{
         so.save(saveListener);
     }
 
-    public void login(String name,FindListener listener){
+    public void login(String name,FindListener<AccountSO> listener){
         BmobQuery<AccountSO> query = new BmobQuery<>();
         query.addWhereEqualTo("name",name);
         query.setLimit(1);
