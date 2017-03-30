@@ -111,6 +111,7 @@ public class MainActivity extends BaseAppCompatActivity {
 //        } catch (DbException e) {
 //            e.printStackTrace();
 //        }
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

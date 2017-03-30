@@ -6,6 +6,6 @@ package com.jcrspace.common.model;
 
 public abstract class BaseModel {
 
-    public int id;
+
 
 }
