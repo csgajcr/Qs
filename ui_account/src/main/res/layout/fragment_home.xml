@@ -2,17 +2,29 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:background="#ffffff"
+                android:visibility="gone"
+                android:id="@+id/fl_not_login">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="您还没登录哦，请先登录吧!"/>
+            </FrameLayout>
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="#ffffff">
+                android:background="#ffffff"
+                android:id="@+id/rl_phone">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -35,7 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#ffffff"
-                android:layout_marginTop="19dp">
+                android:layout_marginTop="19dp"
+                android:id="@+id/rl_username">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,7 +69,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:layout_marginTop="19dp">
                 <RelativeLayout
@@ -98,7 +111,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:layout_marginTop="19dp">
                 <RelativeLayout
@@ -134,7 +147,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:layout_marginTop="19dp">
                 <RelativeLayout
@@ -170,7 +183,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:layout_marginTop="19dp">
                 <RelativeLayout
@@ -198,7 +211,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:layout_marginTop="19dp">
                 <RelativeLayout
@@ -226,7 +239,4 @@
 
 
         </LinearLayout>
-
-
-    </FrameLayout>
 </ScrollView>
