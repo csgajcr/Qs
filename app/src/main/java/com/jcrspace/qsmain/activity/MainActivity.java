@@ -45,13 +45,14 @@ public class MainActivity extends BaseAppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_recent:
+                    setTitle(R.string.recent);
                     return true;
                 case R.id.navigation_dashboard:
-
+                    setTitle(R.string.feature);
                     return true;
-                case R.id.navigation_notifications:
-
+                case R.id.navigation_home:
+                    setTitle(R.string.home);
                     return true;
             }
             return false;
@@ -89,6 +90,7 @@ public class MainActivity extends BaseAppCompatActivity {
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         vpContent.setAdapter(pagerAdapter);
         navigation.setupWithViewPager(vpContent,true);
+        setTitle(R.string.recent);
     }
 
     private void test(){

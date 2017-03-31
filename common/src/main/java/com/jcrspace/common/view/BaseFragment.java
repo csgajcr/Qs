@@ -1,6 +1,7 @@
 package com.jcrspace.common.view;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jcrspace.common.R;
+
 /**
  * Created by jiangchaoren on 2017/3/27.
  */
 
 public abstract class BaseFragment extends Fragment {
-    private View fragmentView;
+    protected View fragmentView;
 
     @Nullable
     @Override
@@ -33,4 +36,8 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initListener();
 
     protected abstract void initData();
+
+    protected <T extends View> T  findViewById(@IdRes int id){
+        return (T) fragmentView.findViewById(id);
+    }
 }

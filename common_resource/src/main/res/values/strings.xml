@@ -2,4 +2,8 @@
     <string name="app_name">Common_Resource</string>
     <string name="host">qingsuan.com</string>
     <string name="scheme">qingsuan</string>
+
+    <string name="home">我</string>
+    <string name="recent">最近</string>
+    <string name="feature">功能</string>
 </resources>

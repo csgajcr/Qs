@@ -18,7 +18,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -31,7 +33,7 @@ dependencies {
     compile project(':common')
     compile project(':manager_account')
     compile project(':ui_account');
-    compile project(':common_resource')
+//    compile project(':common_resource')
     compile project(':manager_bill')
     compile project(':ui_bill')
     compile project(':manager_plan')
