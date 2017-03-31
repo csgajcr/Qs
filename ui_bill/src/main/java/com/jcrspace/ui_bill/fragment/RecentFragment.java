@@ -1,5 +1,6 @@
 package com.jcrspace.ui_bill.fragment;
 
+import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.ui_bill.R;
 
@@ -8,6 +9,12 @@ import com.jcrspace.ui_bill.R;
  */
 
 public class RecentFragment extends BaseFragment{
+
+
+    public RecentFragment(UserLander lander) {
+        super(lander);
+    }
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_recent;

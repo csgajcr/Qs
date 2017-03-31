@@ -1,5 +1,6 @@
 package com.jcrspace.ui_plan.fragment;
 
+import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.ui_plan.R;
 
@@ -8,6 +9,10 @@ import com.jcrspace.ui_plan.R;
  */
 
 public class PlanFragment extends BaseFragment {
+    public PlanFragment(UserLander lander) {
+        super(lander);
+    }
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_plan;

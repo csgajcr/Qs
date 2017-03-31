@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jcrspace.common.Qs;
+import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.utils.AppManager;
 
 /**
@@ -14,10 +15,13 @@ import com.jcrspace.common.utils.AppManager;
 
 public class BaseAppCompatActivity extends AppCompatActivity {
 
+    private UserLander lander;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         AppManager.getInstance().addActivity(this);
+        lander = Qs.lander;
     }
 
     @Override
@@ -49,4 +53,10 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     public void runOnBackgroundThread(Runnable runnable){
         Qs.threadPool.submit(runnable);
     }
+
+    protected UserLander getLander(){
+        return lander;
+    }
+
+
 }

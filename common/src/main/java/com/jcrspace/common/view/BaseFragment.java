@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jcrspace.common.R;
+import com.jcrspace.common.lander.UserLander;
 
 /**
  * Created by jiangchaoren on 2017/3/27.
@@ -17,6 +18,11 @@ import com.jcrspace.common.R;
 
 public abstract class BaseFragment extends Fragment {
     protected View fragmentView;
+    private UserLander lander;
+
+    public BaseFragment(UserLander lander) {
+        this.lander = lander;
+    }
 
     @Nullable
     @Override
@@ -39,5 +45,9 @@ public abstract class BaseFragment extends Fragment {
 
     protected <T extends View> T  findViewById(@IdRes int id){
         return (T) fragmentView.findViewById(id);
+    }
+
+    protected UserLander getLander(){
+        return lander;
     }
 }

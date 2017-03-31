@@ -9,4 +9,6 @@ public class QsCommonConfig {
     public static final boolean DEBUG = true;
     public static final String SCHEME = "qingsuan";
     public static final String HOST = "qingsuan.com";
+
+    public static final String CONFIG_SP_FILE_NAME = "config.xml";
 }

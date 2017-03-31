@@ -8,8 +8,10 @@ import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.ToastUtils;
+import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.ui_account.R;
+import com.jcrspace.ui_account.facade.HomeFacade;
 
 /**
  * Created by jiangchaoren on 2017/3/27.
@@ -23,6 +25,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private RelativeLayout rlSetting;
     private RelativeLayout rlPassword;
     private RelativeLayout rlAbout;
+    private HomeFacade facade;
+
+    public HomeFragment(UserLander lander) {
+        super(lander);
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -45,7 +52,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    
+
                 }
 
             }
@@ -67,7 +74,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     protected void initData() {
-
+        facade = new HomeFacade(getActivity(),getLander());
     }
 
     @Override

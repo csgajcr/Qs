@@ -14,6 +14,7 @@ public class UserLander implements Lander {
     protected Map<Class, Object> managerMap = new HashMap<>();
     private DbManager dbManager;
     private String aid;
+    public static final String DEFAULT_LOCAL_USER_ID = "-1";
 
     public UserLander(Context context, String aid) {
         this.context = context;

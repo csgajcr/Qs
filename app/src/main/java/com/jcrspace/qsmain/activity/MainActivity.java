@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -72,6 +73,22 @@ public class MainActivity extends BaseAppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id==R.id.action_settings){
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initView(){
         navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
         vpContent = (ViewPager) findViewById(R.id.vp_content);
@@ -84,9 +101,9 @@ public class MainActivity extends BaseAppCompatActivity {
     private void initData(){
         test();
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new RecentFragment());
-        fragments.add(new PlanFragment());
-        fragments.add(new HomeFragment());
+        fragments.add(new RecentFragment(getLander()));
+        fragments.add(new PlanFragment(getLander()));
+        fragments.add(new HomeFragment(getLander()));
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         vpContent.setAdapter(pagerAdapter);
         navigation.setupWithViewPager(vpContent,true);
@@ -94,12 +111,12 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void test(){
-        UserLander lander = new UserLander(this,"user0001");
-        AccountDO model = new AccountDO();
-        model.device_token = "189dasodh218";
-        model.last_login_time = 14333333333L;
-        model.name = "123333";
-        model.nick_name = "asdsadasd";
+//        UserLander lander = new UserLander(this,"user0001");
+//        AccountDO model = new AccountDO();
+//        model.device_token = "189dasodh218";
+//        model.last_login_time = 14333333333L;
+//        model.name = "123333";
+//        model.nick_name = "asdsadasd";
 
 
 //        try {
