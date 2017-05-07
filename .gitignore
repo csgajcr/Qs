@@ -7,3 +7,13 @@
 /build
 /captures
 .externalNativeBuild
+
+manager_bill/build/
+
+manager_plan/build/
+
+ui_bill/build/
+
+ui_plan/build/
+
+\.idea/
