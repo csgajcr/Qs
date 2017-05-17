@@ -37,11 +37,11 @@ public class BillManager extends BaseManager {
     }
 
     public void updateBill(BillDO billDO) throws DbException {
-        dbManager.update(billDO);
+        dbManager.saveOrUpdate(billDO);
     }
 
     public void insertBill(BillDO billDO) throws DbException {
-        dbManager.save(billDO);
+        dbManager.saveOrUpdate(billDO);
     }
 
     public List<BillDO> getBillList() throws DbException{
@@ -50,7 +50,7 @@ public class BillManager extends BaseManager {
     }
 
     public void saveBillList(List<BillDO> billDOs) throws DbException{
-        dbManager.save(billDOs);
+        dbManager.saveOrUpdate(billDOs);
     }
 
     public void deleteBill(BillDO billDO) throws DbException{
@@ -58,7 +58,7 @@ public class BillManager extends BaseManager {
     }
 
 
-    public void uploadAllToServer(QueryListListener<BatchResult> listener) throws DbException{
+    public void uploadAllBillToServer(QueryListListener<BatchResult> listener) throws DbException{
         List<BillDO> billDOList = getBillList();
         List<BmobObject> billSOList = new ArrayList<>();
         for (BillDO billDO: billDOList){

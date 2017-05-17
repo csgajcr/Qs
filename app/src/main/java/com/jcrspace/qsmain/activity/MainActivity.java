@@ -19,7 +19,6 @@ import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.common.view.BottomNavigationViewEx;
 import com.jcrspace.manager_account.AccountManager;
 import com.jcrspace.manager_account.model.AccountDO;
-import com.jcrspace.manager_account.model.AccountModel;
 import com.jcrspace.manager_account.model.AccountSO;
 import com.jcrspace.qsmain.R;
 import com.jcrspace.ui_account.fragment.HomeFragment;
@@ -46,11 +45,14 @@ public class MainActivity extends BaseAppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_recent:
-                    setTitle(R.string.recent);
+                case R.id.navigation_bill:
+                    setTitle(R.string.bill);
                     return true;
-                case R.id.navigation_dashboard:
-                    setTitle(R.string.feature);
+                case R.id.navigation_plan:
+                    setTitle(R.string.plan);
+                    return true;
+                case R.id.navigation_recommend:
+                    setTitle(R.string.recommend);
                     return true;
                 case R.id.navigation_home:
                     setTitle(R.string.home);

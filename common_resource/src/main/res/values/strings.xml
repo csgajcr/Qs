@@ -6,4 +6,7 @@
     <string name="home">我</string>
     <string name="recent">最近</string>
     <string name="feature">功能</string>
+    <string name="bill">账单</string>
+    <string name="plan">计划</string>
+    <string name="recommend">推荐</string>
 </resources>
