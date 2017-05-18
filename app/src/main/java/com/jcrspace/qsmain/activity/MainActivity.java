@@ -1,7 +1,9 @@
 package com.jcrspace.qsmain.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -64,16 +66,18 @@ public class MainActivity extends BaseAppCompatActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         initView();
         initListener();
         initData();
-
-
-
     }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,10 +110,12 @@ public class MainActivity extends BaseAppCompatActivity {
         fragments.add(new RecentFragment(getLander()));
         fragments.add(new PlanFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));
+        fragments.add(new HomeFragment(getLander()));
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         vpContent.setAdapter(pagerAdapter);
         navigation.setupWithViewPager(vpContent,true);
-        setTitle(R.string.recent);
+        navigation.enableItemShiftingMode(false);
+        navigation.enableShiftingMode(false);
     }
 
     private void test(){
@@ -134,6 +140,7 @@ public class MainActivity extends BaseAppCompatActivity {
 //        }
 
     }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         List<Fragment> fragmentList;

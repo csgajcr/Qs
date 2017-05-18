@@ -13,13 +13,14 @@ import com.jcrspace.common.utils.AppManager;
  * Created by jiangchaoren on 2017/3/10.
  */
 
-public class BaseAppCompatActivity extends AppCompatActivity {
+public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     private UserLander lander;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getContentView());
         AppManager.getInstance().addActivity(this);
         lander = Qs.lander;
     }
@@ -28,6 +29,8 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
     }
+
+    protected abstract int getContentView();
 
     @Override
     protected void onStart() {
