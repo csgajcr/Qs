@@ -9,4 +9,11 @@
     <string name="bill">账单</string>
     <string name="plan">计划</string>
     <string name="recommend">推荐</string>
+
+    <string name="add_bill">添加账单</string>
+    <string name="comment">备注</string>
+    <string name="price">金额</string>
+    <string name="bill_title">账单标题</string>
+    <string name="price_max_length_2">金额小数点后最多2位</string>
+
 </resources>

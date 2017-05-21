@@ -1,5 +1,6 @@
 package com.jcrspace.manager_bill;
 
+import com.jcrspace.common.Qs;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.manager.BaseManager;
 import com.jcrspace.manager_bill.model.BillDO;
@@ -80,7 +81,7 @@ public class BillManager extends BaseManager {
 
     }
 
-    public void uploadToServer(BillDO billDO, SaveListener listener){
+    public void uploadBillToServer(BillDO billDO, SaveListener listener){
         BillSO so = convert(billDO);
         so.save(listener);
     }
@@ -91,16 +92,21 @@ public class BillManager extends BaseManager {
         query.findObjects(listener);
     }
 
+    /**
+     * DO转SO
+     * bid是bill在服务器的id，上传时不赋值
+     * @param billDO
+     * @return
+     */
     public BillSO convert(BillDO billDO){
         BillSO so= new BillSO();
-        so.id = billDO.bid;
         so.comment = billDO.comment;
         so.create_time = billDO.create_time;
         so.money = billDO.money;
         so.status = billDO.status;
         so.title = billDO.title;
         so.type = billDO.type;
-        so.user_id = billDO.user_id;
+        so.user_id = Integer.parseInt(Qs.lander.getId());
         return so;
     }
 

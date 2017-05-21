@@ -35,8 +35,18 @@ public class UrlBuilder {
         return this;
     }
 
+    public UrlBuilder putParams(String key, String val) {
+        if (val == null) {
+            return this;
+        }
+        uriBuilder.appendQueryParameter(key, val);
+        return this;
+    }
+
+
     public void startActivity(){
         Uri uri = uriBuilder.build();
+
         final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         activity.runOnUiThread(new Runnable() {
             @Override

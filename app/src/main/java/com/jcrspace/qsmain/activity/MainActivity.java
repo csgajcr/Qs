@@ -1,7 +1,6 @@
 package com.jcrspace.qsmain.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -9,31 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseAppCompatActivity;
-import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.common.view.BottomNavigationViewEx;
-import com.jcrspace.manager_account.AccountManager;
-import com.jcrspace.manager_account.model.AccountDO;
-import com.jcrspace.manager_account.model.AccountSO;
 import com.jcrspace.qsmain.R;
 import com.jcrspace.ui_account.fragment.HomeFragment;
-import com.jcrspace.ui_bill.fragment.RecentFragment;
+import com.jcrspace.ui_bill.fragment.BillFragment;
 import com.jcrspace.ui_plan.fragment.PlanFragment;
-
-import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends BaseAppCompatActivity {
 
@@ -107,7 +94,7 @@ public class MainActivity extends BaseAppCompatActivity {
     private void initData(){
         test();
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new RecentFragment(getLander()));
+        fragments.add(new BillFragment(getLander()));
         fragments.add(new PlanFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));

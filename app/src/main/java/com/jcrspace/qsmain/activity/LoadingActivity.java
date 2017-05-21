@@ -54,7 +54,7 @@ public class LoadingActivity extends AppCompatActivity {
     private void initLander(){
         String autoLoginUserId = Qs.getConfigSharedPreferences().getString("auto_login","");
         if (autoLoginUserId.equals("")){//无自动登录用户
-            UserLander lander = new UserLander(Qs.app,"-1");
+            UserLander lander = new UserLander(Qs.app,UserLander.DEFAULT_LOCAL_USER_ID);
             Qs.lander = lander;
         } else { //有自动登录用户
             UserLander lander = new UserLander(Qs.app,autoLoginUserId);
