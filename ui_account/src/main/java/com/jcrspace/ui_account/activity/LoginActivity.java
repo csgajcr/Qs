@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.utils.SpannableStringUtils;
 import com.jcrspace.common.config.ActivityUrls;
+import com.jcrspace.common.dialog.LoadingDialog;
 import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.ui_account.R;
@@ -47,6 +48,13 @@ public class LoginActivity extends BaseAppCompatActivity {
             @Override
             public void onClick(View v) {
                 UrlBuilder.build(LoginActivity.this, ActivityUrls.REGISTER).startActivity();
+            }
+        });
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoadingDialog dialog = new LoadingDialog(LoginActivity.this);
+                dialog.show();
             }
         });
     }
