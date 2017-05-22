@@ -11,81 +11,87 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:paddingBottom="10dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_type"
-                android:layout_alignParentLeft="true"
-                android:text="支出"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="25dp"
-                android:textSize="14dp"
-                android:id="@+id/tv_date"
-                android:textColor="@color/colorAccent"
-                android:text="2017-7-7-7-7-7"/>
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:background="#333333"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_dependiture_header"
+            android:maxLength="2"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
             android:gravity="center"
-            android:id="@+id/tv_title"
-            android:text="这是一个的"
-            android:textSize="30dp"
-            android:textColor="@color/colorAccent"
-            android:singleLine="true"
-            android:layout_marginBottom="5dp"/>
+            android:id="@+id/tv_type"
+            android:text="支出"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/tv_date"
+                    android:textColor="@color/colorAccent"
+                    android:text="2017-7-7-7-7-7"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_title"
+                    android:text="标题标题标题"
+                    android:textSize="16dp"
+                    android:layout_toLeftOf="@+id/tv_date"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@color/colorAccent"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="金额："
-                android:textSize="20sp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="金额："
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="555.55"
+                    android:textColor="#ff0000"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_money"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="555.55"
-                android:textColor="#ff0000"
-                android:textSize="30sp" />
+                android:text="描述："
+                android:textSize="14dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_comment"
+                android:textColor="#999999"
+                android:text="这是一条描述这是一条描述这是一条描述这是一条描述这是一条描述这是一条描述这是一条描述"
+                android:textSize="12sp"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="描述："
-            android:textSize="20sp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_comment"
-            android:text="这是一条描述这是一条描述这是一条描述这是一条描述这是一条描述这是一条描述这是一条描述"
-            android:textSize="13sp"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

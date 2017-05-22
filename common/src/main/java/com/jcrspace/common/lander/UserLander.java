@@ -21,6 +21,12 @@ public class UserLander implements Lander {
         this.aid = aid;
     }
 
+    public void changeAccount(String aid){
+        this.aid = aid;
+        managerMap.clear();
+    }
+
+
     @Override
     public String getId() {
         return aid;

@@ -66,6 +66,10 @@ public class AccountManager extends BaseManager{
 
     }
 
+    public void logout(){
+        lander.changeAccount(UserLander.DEFAULT_LOCAL_USER_ID);
+    }
+
 
     public AccountSO convert(AccountDO accountDO){
         AccountSO so = new AccountSO();

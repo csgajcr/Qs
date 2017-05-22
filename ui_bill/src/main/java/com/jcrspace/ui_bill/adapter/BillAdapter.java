@@ -53,10 +53,10 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         holder.tvDate.setText(DateUtils.getDateTime(billVO.createTime));
         if (billVO.type== BillDO.TYPE.EXPENDITURE){
             holder.tvType.setText(R.string.expenditure);
-            holder.tvType.setTextColor(context.getResources().getColor(R.color.safeRed));
+            holder.tvType.setBackgroundResource(R.drawable.bg_dependiture_header);
         } else {
             holder.tvType.setText(R.string.income);
-            holder.tvType.setTextColor(context.getResources().getColor(R.color.safeGreen));
+            holder.tvType.setBackgroundResource(R.drawable.bg_income_header);
         }
     }
 

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="vertical" android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <FrameLayout
@@ -71,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
+                android:id="@+id/ll_sex"
                 android:layout_marginTop="19dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -114,26 +116,28 @@
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:layout_marginTop="19dp">
+
                 <RelativeLayout
+                    android:id="@+id/rl_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:id="@+id/rl_nickname">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="昵称"
-                        android:textSize="16dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"/>
+                    android:background="?android:attr/selectableItemBackground">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="蒋朝任"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="昵称"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/img_arrow"
-                        android:layout_centerVertical="true" />
+                        android:text="蒋朝任" />
 
                     <ImageView
                         android:id="@+id/img_arrow"
@@ -141,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow_right"/>
+                        android:src="@drawable/ic_arrow_right" />
                 </RelativeLayout>
             </LinearLayout>
 

@@ -16,6 +16,7 @@ import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.common.view.BottomNavigationViewEx;
 import com.jcrspace.qsmain.R;
 import com.jcrspace.ui_account.fragment.HomeFragment;
+import com.jcrspace.ui_account.fragment.RecommendFragment;
 import com.jcrspace.ui_bill.fragment.BillFragment;
 import com.jcrspace.ui_plan.fragment.PlanFragment;
 
@@ -98,9 +99,10 @@ public class MainActivity extends BaseAppCompatActivity {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new BillFragment(getLander()));
         fragments.add(new PlanFragment(getLander()));
+        fragments.add(new RecommendFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));
-        fragments.add(new HomeFragment(getLander()));
-        EventBus.getDefault().register(fragments.get(0)); //为BillFragment绑定
+        EventBus.getDefault().register(fragments.get(0)); //为BillFragment绑定EventBus
+        EventBus.getDefault().register(fragments.get(3));
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         vpContent.setAdapter(pagerAdapter);
         navigation.setupWithViewPager(vpContent,true);

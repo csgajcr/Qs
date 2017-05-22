@@ -2,18 +2,27 @@ package com.jcrspace.ui_account.fragment;
 
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.utils.ActivityUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.ToastUtils;
+import com.jcrspace.common.config.ActivityUrls;
 import com.jcrspace.common.lander.UserLander;
+import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseFragment;
+import com.jcrspace.manager_account.event.LogoutEvent;
 import com.jcrspace.ui_account.R;
 import com.jcrspace.ui_account.facade.HomeFacade;
 import com.jcrspace.ui_account.model.AccountVO;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by jiangchaoren on 2017/3/27.
@@ -30,6 +39,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private RelativeLayout rlUserName;
     private RelativeLayout rlPhone;
     private FrameLayout flNotLoginView;
+    private RelativeLayout rlSex;
+    private LinearLayout llSex;
 
     private HomeFacade facade;
 
@@ -53,6 +64,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         flNotLoginView = findViewById(R.id.fl_not_login);
         rlUserName = findViewById(R.id.rl_username);
         rlPhone = findViewById(R.id.rl_phone);
+        rlSex = findViewById(R.id.rl_sex);
+        llSex = findViewById(R.id.ll_sex);
     }
 
     @Override
@@ -74,7 +87,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 }
             }
         });
-
+        flNotLoginView.setOnClickListener(this);
         rlAbout.setOnClickListener(this);
         rlSetting.setOnClickListener(this);
         rlNickName.setOnClickListener(this);
@@ -90,18 +103,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private void renderMenu(){
         if (facade.isUserLogin()){
             flNotLoginView.setVisibility(View.GONE);
-            rlPassword.setVisibility(View.VISIBLE);
-            rlNickName.setVisibility(View.VISIBLE);
+            ((ViewGroup)rlPassword.getParent()).setVisibility(View.VISIBLE);
+            ((ViewGroup)rlNickName.getParent()).setVisibility(View.VISIBLE);
             rlPhone.setVisibility(View.VISIBLE);
             rlUserName.setVisibility(View.VISIBLE);
+            ((ViewGroup)rlSex.getParent()).setVisibility(View.VISIBLE);
             AccountVO accountVO = facade.getAccountInformation();
             //TODO render account information
         } else {
             flNotLoginView.setVisibility(View.VISIBLE);
-            rlPassword.setVisibility(View.GONE);
-            rlNickName.setVisibility(View.GONE);
+            ((ViewGroup)rlPassword.getParent()).setVisibility(View.GONE);
+            ((ViewGroup)rlNickName.getParent()).setVisibility(View.GONE);
             rlPhone.setVisibility(View.GONE);
             rlUserName.setVisibility(View.GONE);
+            ((ViewGroup)rlSex.getParent()).setVisibility(View.GONE);
         }
     }
 
@@ -109,13 +124,25 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.rl_about) {
-
+            UrlBuilder.build(getActivity(), ActivityUrls.ABOUT).startActivity();
         } else if (id == R.id.rl_nickname){
 
         } else if (id == R.id.rl_password){
 
         } else if (id == R.id.rl_setting){
-
+            UrlBuilder.build(getActivity(), ActivityUrls.SETTING).startActivity();
+        } else if (id == R.id.fl_not_login){
+            UrlBuilder.build(getActivity(), ActivityUrls.LOGIN).startActivity();
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLogoutEvent(LogoutEvent event){
+        /**
+         * 退出登录
+         */
+        renderMenu();
+    }
+
+
 }

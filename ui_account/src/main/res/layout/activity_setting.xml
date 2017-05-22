@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.jcrspace.ui_account.activity.SettingActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff">
+        <Switch
+            android:id="@+id/sw_sync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自动同步数据"
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:checked="false"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="#ffffff">
+        <Switch
+            android:id="@+id/sw_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="新信息推送"
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:checked="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="#ffffff">
+        <Switch
+            android:id="@+id/sw_auto_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自动登录"
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:checked="true"/>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/btn_exit_login"
+        android:layout_marginTop="16dp"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="16dp"/>
+</LinearLayout>

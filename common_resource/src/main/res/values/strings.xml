@@ -29,4 +29,11 @@
     <string name="date_time_format_day">HH:mm</string>
     <!--今年昨天时间-->
     <string name="date_time_format_yesterday">昨天</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="mobile">手机号</string>
+    <string name="password">密码</string>
+    <string name="havent_mobile_goto_register">还没有账号？立即注册</string>
 </resources>
