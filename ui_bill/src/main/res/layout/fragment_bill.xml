@@ -7,7 +7,9 @@
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_bill"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+        android:id="@+id/rv_bill"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"></com.jcodecraeer.xrecyclerview.XRecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

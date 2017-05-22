@@ -11,6 +11,7 @@ import com.jcrspace.ui_bill.model.BillVO;
 import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
 public class BillFacade extends BaseFacade {
 
     private BillManager billManager;
-    private List<BillVO> billVOList;
+    public List<BillVO> billVOList;
 
     public BillFacade(Context context, UserLander lander) {
         super(context, lander);
@@ -39,6 +40,7 @@ public class BillFacade extends BaseFacade {
                 billVOs.add(billVO);
             }
             billVOList = billVOs;
+            Collections.reverse(billVOList);
             return billVOList;
         } catch (DbException e) {
             e.printStackTrace();

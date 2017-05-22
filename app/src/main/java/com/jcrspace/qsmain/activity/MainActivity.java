@@ -19,6 +19,8 @@ import com.jcrspace.ui_account.fragment.HomeFragment;
 import com.jcrspace.ui_bill.fragment.BillFragment;
 import com.jcrspace.ui_plan.fragment.PlanFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,11 +100,14 @@ public class MainActivity extends BaseAppCompatActivity {
         fragments.add(new PlanFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));
+        EventBus.getDefault().register(fragments.get(0)); //为BillFragment绑定
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         vpContent.setAdapter(pagerAdapter);
         navigation.setupWithViewPager(vpContent,true);
         navigation.enableItemShiftingMode(false);
         navigation.enableShiftingMode(false);
+        vpContent.setOffscreenPageLimit(3);
+        setTitle(R.string.bill);
     }
 
     private void test(){
@@ -128,6 +133,12 @@ public class MainActivity extends BaseAppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        //取消注册
+        EventBus.getDefault().unregister(pagerAdapter.fragmentList.get(0));
+        super.onDestroy();
+    }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         List<Fragment> fragmentList;

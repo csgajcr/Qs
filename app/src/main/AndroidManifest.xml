@@ -22,7 +22,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
         <activity android:name=".activity.LoadingActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

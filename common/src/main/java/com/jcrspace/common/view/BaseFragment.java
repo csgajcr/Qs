@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.jcrspace.common.R;
 import com.jcrspace.common.lander.UserLander;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by jiangchaoren on 2017/3/27.
  */
@@ -33,6 +35,18 @@ public abstract class BaseFragment extends Fragment {
         initListener();
         initData();
         return fragmentView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
     }
 
     protected abstract @LayoutRes int getLayoutResource();

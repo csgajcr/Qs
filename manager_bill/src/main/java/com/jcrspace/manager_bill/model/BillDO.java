@@ -37,4 +37,10 @@ public class BillDO extends BaseDO {
 
     @Column(name = "comment")
     public String comment;
+
+    public static class TYPE{
+        public static final int UNSET = 0;
+        public static final int EXPENDITURE = 1;
+        public static final int INCOME = 2;
+    }
 }

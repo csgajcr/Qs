@@ -50,9 +50,30 @@
             android:maxLength="150"
             android:inputType="textMultiLine" />
     </android.support.design.widget.TextInputLayout>
+    
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expenditure"
+            android:id="@+id/rb_expenditure"
+            android:checked="true"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/income"
+            android:id="@+id/rb_income"
+            android:layout_marginLeft="30dp"/>
+    </RadioGroup>
 
     <Button
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_save"

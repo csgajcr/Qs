@@ -15,5 +15,18 @@
     <string name="price">金额</string>
     <string name="bill_title">账单标题</string>
     <string name="price_max_length_2">金额小数点后最多2位</string>
+    <string name="price_not_null">金额不能为空</string>
+    <string name="bill_title_not_null">订单标题不能为空</string>
+    <string name="expenditure">支出</string>
+    <string name="income">收入</string>
+    <string name="add_bill_success">添加账单成功</string>
 
+
+
+    <string name="date_time_format1">yyyy/MM/dd</string>
+    <string name="date_time_format2">yyyy/MM/dd HH:mm</string>
+    <!--今年今天时间-->
+    <string name="date_time_format_day">HH:mm</string>
+    <!--今年昨天时间-->
+    <string name="date_time_format_yesterday">昨天</string>
 </resources>

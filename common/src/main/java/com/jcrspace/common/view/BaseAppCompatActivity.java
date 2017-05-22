@@ -9,6 +9,8 @@ import com.jcrspace.common.Qs;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.utils.AppManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Created by jiangchaoren on 2017/3/10.
  */
@@ -35,11 +37,13 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
     }
 
     @Override

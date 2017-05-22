@@ -20,6 +20,7 @@ public class BillVO {
         this.createTime = billDO.create_time;
         this.money = String.valueOf(billDO.money);
         this.comment = billDO.comment;
+        this.type = billDO.type;
     }
 
     public int id;
@@ -33,5 +34,7 @@ public class BillVO {
     public String money;
 
     public String comment;
+
+    public int type;
 
 }
