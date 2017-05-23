@@ -49,7 +49,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             holder.tvComment.setVisibility(View.VISIBLE);
             holder.tvComment.setText(billVO.comment);
         }
-        holder.tvMoney.setText(billVO.money);
+        holder.tvMoney.setText("￥"+billVO.money);
         holder.tvDate.setText(DateUtils.getDateTime(billVO.createTime));
         if (billVO.type== BillDO.TYPE.EXPENDITURE){
             holder.tvType.setText(R.string.expenditure);

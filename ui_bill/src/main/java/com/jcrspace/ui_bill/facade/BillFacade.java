@@ -49,4 +49,13 @@ public class BillFacade extends BaseFacade {
         }
     }
 
+    public boolean deleteBill(BillVO vo){
+        try {
+            billManager.deleteBill(vo.billDO);
+            return true;
+        } catch (DbException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

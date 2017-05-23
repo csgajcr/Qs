@@ -79,6 +79,10 @@ public class AddBillActivity extends BaseAppCompatActivity {
                     editable.delete(text.indexOf(".")+3,text.length());
                     ToastUtils.showShortToast(R.string.price_max_length_2);
                 }
+                if (Long.parseLong(text)>9999999L){
+                    editable.delete(text.length()-1,text.length());
+                    ToastUtils.showShortToast(R.string.price_max_value);
+                }
             }
         });
 
@@ -104,6 +108,7 @@ public class AddBillActivity extends BaseAppCompatActivity {
             billDO.title = etTitle.getText().toString();
         } else {
             ToastUtils.showShortToast(R.string.bill_title_not_null);
+            return;
         }
         if (rbIncome.isChecked()){
             billDO.type = BillDO.TYPE.INCOME;

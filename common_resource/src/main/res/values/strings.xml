@@ -15,6 +15,7 @@
     <string name="price">金额</string>
     <string name="bill_title">账单标题</string>
     <string name="price_max_length_2">金额小数点后最多2位</string>
+    <string name="price_max_value">金额超过最大值，请重新输入</string>
     <string name="price_not_null">金额不能为空</string>
     <string name="bill_title_not_null">订单标题不能为空</string>
     <string name="expenditure">支出</string>
@@ -37,4 +38,9 @@
     <string name="password">密码</string>
     <string name="havent_mobile_goto_register">还没有账号？立即注册</string>
     <string name="confirm_password">确认密码</string>
+    <string name="no_bill_click_add">你还没有账单哦\n点击右下角的按钮添加账单!</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="tip">提示</string>
+    <string name="confirm_delete_bill">确认删除该账单吗？</string>
 </resources>
