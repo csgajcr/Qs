@@ -1,8 +1,11 @@
 package com.jcrspace.common.manager;
 
+import com.jcrspace.common.config.ApiUrls;
+import com.jcrspace.common.config.QsCommonConfig;
 import com.jcrspace.common.lander.UserLander;
 
 import org.xutils.HttpManager;
+import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 /**
@@ -26,5 +29,11 @@ public class RecommendManager extends BaseManager {
         this.lander = lander;
         httpManager = x.http();
     }
-    
+
+    public void getWeatherInfoFromServer(){
+        RequestParams params = new RequestParams(ApiUrls.API_WEATHER_URL);
+        params.addBodyParameter("cityname","重庆");
+        params.addBodyParameter("key", QsCommonConfig.HAO_SERVICE_API_KEY);
+    }
+
 }

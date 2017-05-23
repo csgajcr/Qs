@@ -11,4 +11,6 @@ public class QsCommonConfig {
     public static final String HOST = "qingsuan.com";
 
     public static final String CONFIG_SP_FILE_NAME = "config.xml";
+
+    public static final String HAO_SERVICE_API_KEY = "42bdac47b8e74416b3ae35c7b13e09c9";
 }
