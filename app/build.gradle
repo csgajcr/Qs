@@ -36,8 +36,8 @@ dependencies {
 //    compile project(':common_resource')
     compile project(':manager_bill')
     compile project(':ui_bill')
-    compile project(':manager_plan')
-    compile project(':ui_plan')
+    compile project(':manager_statistics')
+    compile project(':ui_statistics')
     compile 'com.android.support:support-vector-drawable:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
