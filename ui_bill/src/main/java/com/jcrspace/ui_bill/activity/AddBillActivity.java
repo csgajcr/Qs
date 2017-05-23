@@ -75,13 +75,19 @@ public class AddBillActivity extends BaseAppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String text = editable.toString();
+                if (text.equals(".")){
+                    editable.delete(text.length()-1,text.length());
+                    return;
+                }
                 if (text.contains(".") && text.length()-text.indexOf(".")>3){
                     editable.delete(text.indexOf(".")+3,text.length());
                     ToastUtils.showShortToast(R.string.price_max_length_2);
+                    return;
                 }
-                if (Long.parseLong(text)>9999999L){
+                if (text.length()>1 && Float.parseFloat(text)> 9999999L){
                     editable.delete(text.length()-1,text.length());
                     ToastUtils.showShortToast(R.string.price_max_value);
+                    return;
                 }
             }
         });

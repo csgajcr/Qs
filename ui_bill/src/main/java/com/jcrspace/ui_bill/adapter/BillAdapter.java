@@ -50,13 +50,16 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             holder.tvComment.setText(billVO.comment);
         }
         holder.tvMoney.setText("￥"+billVO.money);
+
         holder.tvDate.setText(DateUtils.getDateTime(billVO.createTime));
         if (billVO.type== BillDO.TYPE.EXPENDITURE){
             holder.tvType.setText(R.string.expenditure);
             holder.tvType.setBackgroundResource(R.drawable.bg_dependiture_header);
+            holder.tvMoney.setTextColor(context.getResources().getColor(R.color.safeRed));
         } else {
             holder.tvType.setText(R.string.income);
             holder.tvType.setBackgroundResource(R.drawable.bg_income_header);
+            holder.tvMoney.setTextColor(context.getResources().getColor(R.color.safeGreen));
         }
     }
 
