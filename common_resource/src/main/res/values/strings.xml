@@ -43,4 +43,5 @@
     <string name="cancel">取消</string>
     <string name="tip">提示</string>
     <string name="confirm_delete_bill">确认删除该账单吗？</string>
+    <string name="error_network_not_connect">获取推荐信息失败\n请检查您的网络连接配置</string>
 </resources>

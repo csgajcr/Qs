@@ -5,5 +5,5 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="plan"/>
+        android:text="统计视图"/>
 </LinearLayout>
