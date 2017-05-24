@@ -5,5 +5,5 @@ package com.jcrspace.common.config;
  */
 
 public class ApiUrls {
-    public static String API_WEATHER_URL = "http://apis.haoservice.com/weather";
+    public static String API_WEATHER_URL = "https://ali-weather.showapi.com/area-to-weather";
 }

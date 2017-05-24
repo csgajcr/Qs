@@ -1,4 +1,4 @@
-package com.jcrspace.ui_plan;
+package com.jcrspace.manager_statistics;
 
 import org.junit.Test;
 

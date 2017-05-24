@@ -11,6 +11,6 @@ public class QsCommonConfig {
     public static final String HOST = "qingsuan.com";
 
     public static final String CONFIG_SP_FILE_NAME = "config.xml";
-
-    public static final String HAO_SERVICE_API_KEY = "42bdac47b8e74416b3ae35c7b13e09c9";
+    public static final String ALIYUN_API_CODE = "6e1841a3cf1341ecb58e68682014b2da";
+    public static final String LOCAL_ADDRESS_CITY_NAME = "重庆";
 }

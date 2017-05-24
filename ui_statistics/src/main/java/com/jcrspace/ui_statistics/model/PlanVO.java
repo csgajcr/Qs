@@ -1,4 +1,4 @@
-package com.jcrspace.ui_plan.model;
+package com.jcrspace.ui_statistics.model;
 
 /**
  * Created by jiangchaoren on 2017/3/28.

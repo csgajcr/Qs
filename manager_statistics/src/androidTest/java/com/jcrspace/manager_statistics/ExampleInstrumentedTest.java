@@ -1,4 +1,4 @@
-package com.jcrspace.manager_plan;
+package com.jcrspace.manager_statistics;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

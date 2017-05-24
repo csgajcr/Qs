@@ -1,8 +1,8 @@
-package com.jcrspace.manager_plan;
+package com.jcrspace.manager_statistics;
 
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.manager.BaseManager;
-import com.jcrspace.manager_plan.model.PlanDO;
+import com.jcrspace.manager_statistics.model.PlanDO;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;

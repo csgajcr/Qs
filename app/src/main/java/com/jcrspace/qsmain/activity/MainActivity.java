@@ -18,7 +18,7 @@ import com.jcrspace.qsmain.R;
 import com.jcrspace.ui_account.fragment.HomeFragment;
 import com.jcrspace.ui_account.fragment.RecommendFragment;
 import com.jcrspace.ui_bill.fragment.BillFragment;
-import com.jcrspace.ui_plan.fragment.PlanFragment;
+import com.jcrspace.ui_statistics.fragment.StatisticsFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -98,7 +98,7 @@ public class MainActivity extends BaseAppCompatActivity {
         test();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new BillFragment(getLander()));
-        fragments.add(new PlanFragment(getLander()));
+        fragments.add(new StatisticsFragment(getLander()));
         fragments.add(new RecommendFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));
         EventBus.getDefault().register(fragments.get(0)); //为BillFragment绑定EventBus
@@ -113,6 +113,7 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void test(){
+
 //        UserLander lander = new UserLander(this,"user0001");
 //        AccountDO model = new AccountDO();
 //        model.device_token = "189dasodh218";

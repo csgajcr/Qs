@@ -1,4 +1,4 @@
-package com.jcrspace.manager_plan.model;
+package com.jcrspace.manager_statistics.model;
 
 import com.jcrspace.common.model.BaseDO;
 

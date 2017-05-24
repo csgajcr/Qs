@@ -1,4 +1,4 @@
-package com.jcrspace.ui_plan;
+package com.jcrspace.ui_statistics;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
