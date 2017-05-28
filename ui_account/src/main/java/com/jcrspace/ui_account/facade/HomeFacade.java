@@ -71,7 +71,7 @@ public class HomeFacade extends BaseFacade {
     }
 
     public void refreshCurrentAccount(){
-        getAccountInformation();
+        currentAccount = getAccountInformation();
     }
 
     public void updateUserSex(final String sex){

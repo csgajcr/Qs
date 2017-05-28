@@ -58,6 +58,7 @@ public class AccountManager extends BaseManager{
 
 
     public void createUserInfo(AccountDO accountDO) throws DbException{
+        dbManager.dropTable(AccountDO.class);
         dbManager.saveOrUpdate(accountDO);
     }
 
@@ -89,8 +90,16 @@ public class AccountManager extends BaseManager{
         query.findObjectsByTable(listener);
     }
 
-    public void resetPassword(int id,String password){
-
+    public void updatePassword(String newPassword,UpdateListener listener){
+        AccountDO accountDO = null;
+        try {
+            accountDO = readUserInfo();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        AccountSO accountSO = convert(accountDO);
+        accountSO.password = EncryptUtils.encryptMD5ToString(newPassword);
+        accountSO.update(accountDO.objectID,listener);
     }
 
     public void logout(){
@@ -103,6 +112,17 @@ public class AccountManager extends BaseManager{
         sharedPreferences.edit().putString(QsCommonConfig.SP_AUTO_LOGIN_NAME,username).apply();
     }
 
+    public void updateUserNickname(String nickname,UpdateListener listener){
+        AccountDO accountDO = null;
+        try {
+            accountDO = readUserInfo();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        accountDO.nick_name = nickname;
+        AccountSO accountSO = convert(accountDO);
+        accountSO.update(accountDO.objectID,listener);
+    }
 
     public AccountSO convert(AccountDO accountDO){
         AccountSO so = new AccountSO();

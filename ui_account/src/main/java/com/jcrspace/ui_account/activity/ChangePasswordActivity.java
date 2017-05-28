@@ -9,10 +9,27 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.blankj.utilcode.utils.EncryptUtils;
 import com.blankj.utilcode.utils.RegexUtils;
 import com.blankj.utilcode.utils.ToastUtils;
+import com.google.gson.Gson;
+import com.jcrspace.common.dialog.LoadingDialog;
 import com.jcrspace.common.view.BaseAppCompatActivity;
+import com.jcrspace.manager_account.AccountManager;
+import com.jcrspace.manager_account.event.LoginCompleteEvent;
+import com.jcrspace.manager_account.model.AccountSO;
+import com.jcrspace.manager_account.model.AccountSOList;
 import com.jcrspace.ui_account.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
+import org.xutils.ex.DbException;
+
+import java.util.List;
+
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class ChangePasswordActivity extends BaseAppCompatActivity {
 
@@ -20,6 +37,8 @@ public class ChangePasswordActivity extends BaseAppCompatActivity {
     private EditText etNewPassword;
     private EditText etConfirmPassword;
     private Button btnSubmit;
+    private AccountManager accountManager;
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +55,8 @@ public class ChangePasswordActivity extends BaseAppCompatActivity {
         etConfirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         btnSubmit = (Button) findViewById(R.id.btn_submit);
         showSoftInputFromWindow(etOldPassword);
+        dialog = new LoadingDialog(this);
+        dialog.setCancelable(false);
     }
 
     private void initData(){
@@ -47,10 +68,50 @@ public class ChangePasswordActivity extends BaseAppCompatActivity {
                 }
             }
         });
+        accountManager = AccountManager.getInstance(getLander());
     }
 
     private void startChange(){
-
+        dialog.show();
+        final String oldPassword = etOldPassword.getText().toString();
+        final String newPassword = etNewPassword.getText().toString();
+        try {
+            accountManager.findAccountFromServer(accountManager.readUserInfo().mobile, new QueryListener<JSONArray>() {
+                @Override
+                public void done(JSONArray jsonArray, BmobException e) {
+                    dialog.dismiss();
+                    if (e!=null){
+                        ToastUtils.showShortToast(R.string.network_connect_failed);
+                        return;
+                    }
+                    Gson gson = new Gson();
+                    final AccountSOList accountList = gson.fromJson("{accountSOList:"+jsonArray.toString()+"} ",AccountSOList.class);
+                    List<AccountSO> list = accountList.accountSOList;
+                    if (list.size()==0){
+                        ToastUtils.showShortToast(R.string.unknown_error);
+                        return;
+                    }
+                    final AccountSO accountSO = list.get(0);
+                    if (accountSO.password.equals(EncryptUtils.encryptMD5ToString(oldPassword))){
+                        accountManager.updatePassword(newPassword, new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if (e==null){
+                                    ToastUtils.showShortToast(R.string.change_password_success);
+                                    finish();
+                                } else {
+                                    ToastUtils.showShortToast(R.string.network_connect_failed);
+                                }
+                            }
+                        });
+                    } else {
+                        ToastUtils.showShortToast(R.string.old_password_incorrect);
+                    }
+                }
+            });
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

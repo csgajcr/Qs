@@ -18,6 +18,7 @@ import com.jcrspace.common.config.ActivityUrls;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseFragment;
+import com.jcrspace.manager_account.event.ChangeNicknameEvent;
 import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_account.event.LogoutEvent;
 import com.jcrspace.manager_account.model.AccountDO;
@@ -143,6 +144,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 } else {
                     rbFemale.setChecked(true);
                 }
+            } else {
+                rbFemale.setChecked(false);
+                rbMale.setChecked(false);
             }
 
         } else {
@@ -161,7 +165,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         if (id == R.id.rl_about) {
             UrlBuilder.build(getActivity(), ActivityUrls.ABOUT).startActivity();
         } else if (id == R.id.rl_nickname){
-            UrlBuilder.build(getActivity(), ActivityUrls.CHANGE_NICKNAME).startActivity();
+            if (facade.getCurrentAccount().getNickName()!=null){
+                UrlBuilder.build(getActivity(), ActivityUrls.CHANGE_NICKNAME).putParams("nickname",facade.getCurrentAccount().getNickName()).startActivity();
+            } else {
+                UrlBuilder.build(getActivity(), ActivityUrls.CHANGE_NICKNAME).startActivity();
+            }
         } else if (id == R.id.rl_password){
             UrlBuilder.build(getActivity(), ActivityUrls.CHANGE_PASSWORD).startActivity();
         } else if (id == R.id.rl_setting){
@@ -188,6 +196,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             facade.refreshCurrentAccount();
             EventBus.getDefault().post(new BillListRefreshEvent());
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChangeNicknameEvent(ChangeNicknameEvent event){
+        tvNickName.setText(event.accountDO.nick_name);
     }
 
 

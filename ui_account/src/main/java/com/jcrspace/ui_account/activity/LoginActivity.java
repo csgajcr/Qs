@@ -82,6 +82,7 @@ public class LoginActivity extends BaseAppCompatActivity {
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)),
                 spannableString.length()-4,spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvRegister.setText(spannableString);
+        showSoftInputFromWindow(etMobile);
     }
 
     private void startLogin(){

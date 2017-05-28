@@ -46,6 +46,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
         btnRegister = (Button) findViewById(R.id.btn_register);
         loadingDialog = new LoadingDialog(this);
         loadingDialog.setCancelable(false);
+        showSoftInputFromWindow(etMobile);
     }
 
     private void initListener(){

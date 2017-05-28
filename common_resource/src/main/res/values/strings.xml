@@ -78,4 +78,8 @@
     <string name="old_password">原密码</string>
     <string name="new_password">新密码</string>
     <string name="nickname_not_null">昵称不能为空</string>
+    <string name="change_success">修改成功</string>
+    <string name="unknown_error">未知的错误,请重试</string>
+    <string name="change_password_success">修改密码成功</string>
+    <string name="old_password_incorrect">原密码不正确</string>
 </resources>
