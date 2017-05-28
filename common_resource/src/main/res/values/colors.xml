@@ -9,4 +9,6 @@
         <color name="safeRed">#cc3300</color>
         <color name="grey">#999999</color>
         <color name="transparent">#00000000</color>
+
+        <color name="safeBlack">#333333</color>
 </resources>

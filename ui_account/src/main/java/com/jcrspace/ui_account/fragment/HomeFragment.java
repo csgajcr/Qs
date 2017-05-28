@@ -16,6 +16,7 @@ import com.jcrspace.common.config.ActivityUrls;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseFragment;
+import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_account.event.LogoutEvent;
 import com.jcrspace.ui_account.R;
 import com.jcrspace.ui_account.facade.HomeFacade;
@@ -23,6 +24,9 @@ import com.jcrspace.ui_account.model.AccountVO;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Created by jiangchaoren on 2017/3/27.
@@ -136,12 +140,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         }
     }
 
+    /**
+     * 退出登录事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLogoutEvent(LogoutEvent event){
-        /**
-         * 退出登录
-         */
         renderMenu();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginCompleteEvent(LoginCompleteEvent event){
+        if (event.isSuccess){
+            renderMenu();
+        }
     }
 
 

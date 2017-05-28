@@ -1,6 +1,8 @@
 package com.jcrspace.manager_account;
+import com.blankj.utilcode.utils.EncryptUtils;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.manager.BaseManager;
+import com.jcrspace.common.manager.TokenManager;
 import com.jcrspace.manager_account.model.AccountDO;
 import com.jcrspace.manager_account.model.AccountSO;
 
@@ -49,13 +51,16 @@ public class AccountManager extends BaseManager{
         dbManager.save(accountDO);
     }
 
-    public void register(AccountDO accountDO,String password,SaveListener saveListener){
-        AccountSO so = convert(accountDO);
-        so.password = password;
+    public void register(String userName,String password,SaveListener saveListener){
+        AccountSO so = new AccountSO();
+        so.name = userName;
+        so.register_time = System.currentTimeMillis();
+        so.password = EncryptUtils.encryptMD5ToString(password);
+        so.device_token = TokenManager.calcToken(userName);
         so.save(saveListener);
     }
 
-    public void login(String name,FindListener<AccountSO> listener){
+    public void findAccountFromServer(String name, FindListener<AccountSO> listener){
         BmobQuery<AccountSO> query = new BmobQuery<>();
         query.addWhereEqualTo("name",name);
         query.setLimit(1);

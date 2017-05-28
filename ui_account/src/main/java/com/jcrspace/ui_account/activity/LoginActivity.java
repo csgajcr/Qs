@@ -12,12 +12,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.RegexUtils;
 import com.blankj.utilcode.utils.SpannableStringUtils;
+import com.blankj.utilcode.utils.ToastUtils;
+import com.jcrspace.common.Qs;
 import com.jcrspace.common.config.ActivityUrls;
 import com.jcrspace.common.dialog.LoadingDialog;
 import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseAppCompatActivity;
+import com.jcrspace.manager_account.event.LoginCompleteEvent;
+import com.jcrspace.manager_account.event.RegisterCompleteEvent;
 import com.jcrspace.ui_account.R;
+import com.jcrspace.ui_account.facade.LoginFacade;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class LoginActivity extends BaseAppCompatActivity {
 
@@ -25,6 +35,9 @@ public class LoginActivity extends BaseAppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvRegister;
+
+    private LoginFacade facade;
+    private LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +54,7 @@ public class LoginActivity extends BaseAppCompatActivity {
         etPassword = (EditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
         tvRegister = (TextView) findViewById(R.id.tv_register);
+        dialog = new LoadingDialog(this);
     }
 
     private void initListener(){
@@ -53,19 +67,42 @@ public class LoginActivity extends BaseAppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoadingDialog dialog = new LoadingDialog(LoginActivity.this);
-                dialog.show();
+                if (validateInputInfo()){
+                    startLogin();
+                }
             }
         });
     }
 
     private void initData(){
+        facade = new LoginFacade(this,getLander());
+        EventBus.getDefault().register(this);
         SpannableString spannableString = new SpannableString(getString(R.string.havent_mobile_goto_register));
         spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)),
                 spannableString.length()-4,spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvRegister.setText(spannableString);
     }
 
+    private void startLogin(){
+        dialog.show();
+        facade.login(etMobile.getText().toString(),etPassword.getText().toString());
+    }
+
+    /**
+     * 验证输入信息
+     * @return
+     */
+    private boolean validateInputInfo(){
+        if (!RegexUtils.isMobileExact(etMobile.getText().toString())){
+            ToastUtils.showShortToast(R.string.mobile_format_error);
+            return false;
+        }
+        if (etPassword.getText().toString().length()<6){
+            ToastUtils.showShortToast(R.string.password_too_short);
+            return false;
+        }
+        return true;
+    }
 
     @Override
     protected int getContentView() {
@@ -79,5 +116,37 @@ public class LoginActivity extends BaseAppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    /**
+     * 登录完成
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginCompleteEvent(LoginCompleteEvent event){
+        dialog.dismiss();
+        //TODO 处理登录完成的数据
+        if (event.isSuccess){
+            ToastUtils.showShortToast(R.string.login_success);
+            Qs.lander.changeAccount(event.accountSO.name);
+            finish();
+        }
+    }
+
+    /**
+     * 注册完成，提示用户登录
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRegisterCompleteEvent(RegisterCompleteEvent event){
+        if (event.isSuccess){
+            etMobile.setText(event.userName);
+        }
     }
 }

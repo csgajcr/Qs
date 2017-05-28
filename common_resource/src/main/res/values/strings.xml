@@ -43,5 +43,24 @@
     <string name="cancel">取消</string>
     <string name="tip">提示</string>
     <string name="confirm_delete_bill">确认删除该账单吗？</string>
-    <string name="error_network_not_connect">获取推荐信息失败\n请检查您的网络连接配置</string>
+    <string name="error_network_not_connect">获取天气信息失败\n请点击刷新重试</string>
+
+    <string name="wind_direction">风向：</string>
+    <string name="wind_power">风力：</string>
+    <string name="humidity">湿度：</string>
+    <string name="PM2_5">可入肺颗粒物(PM2.5)：</string>
+    <string name="aqi_quality">空气质量：</string>
+    <string name="hello_words">「{words}」</string>
+    <string name="money">金额</string>
+    <string name="seven_day_money_count_table">7天内开支统计表:</string>
+    <string name="statistics">统计</string>
+    <string name="not_login_press_goto_login">您还没登录哦，请点此登录吧!</string>
+    <string name="username_password_invalid">用户名或密码错误</string>
+    <string name="network_connect_failed">网络连接失败,请检查您的网络设置</string>
+    <string name="mobile_format_error">手机号码格式错误</string>
+    <string name="password_too_short">密码不能少于6位</string>
+    <string name="password_not_equal">两次输入密码不相等</string>
+
+    <string name="register_success_please_login">注册成功!请立即登录吧</string>
+    <string name="login_success">登录成功</string>
 </resources>

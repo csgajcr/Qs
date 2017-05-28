@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.common.view.BottomNavigationViewEx;
+import com.jcrspace.manager_statistics.event.ChartAnimateEvent;
 import com.jcrspace.qsmain.R;
 import com.jcrspace.ui_account.fragment.HomeFragment;
 import com.jcrspace.ui_account.fragment.RecommendFragment;
@@ -41,7 +42,8 @@ public class MainActivity extends BaseAppCompatActivity {
                     setTitle(R.string.bill);
                     return true;
                 case R.id.navigation_plan:
-                    setTitle(R.string.plan);
+                    setTitle(R.string.statistics);
+                    EventBus.getDefault().post(new ChartAnimateEvent());
                     return true;
                 case R.id.navigation_recommend:
                     setTitle(R.string.recommend);
@@ -102,6 +104,7 @@ public class MainActivity extends BaseAppCompatActivity {
         fragments.add(new RecommendFragment(getLander()));
         fragments.add(new HomeFragment(getLander()));
         EventBus.getDefault().register(fragments.get(0)); //为BillFragment绑定EventBus
+        EventBus.getDefault().register(fragments.get(1));
         EventBus.getDefault().register(fragments.get(3));
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         vpContent.setAdapter(pagerAdapter);
@@ -140,6 +143,8 @@ public class MainActivity extends BaseAppCompatActivity {
     protected void onDestroy() {
         //取消注册
         EventBus.getDefault().unregister(pagerAdapter.fragmentList.get(0));
+        EventBus.getDefault().unregister(pagerAdapter.fragmentList.get(1));
+        EventBus.getDefault().unregister(pagerAdapter.fragmentList.get(3));
         super.onDestroy();
     }
 

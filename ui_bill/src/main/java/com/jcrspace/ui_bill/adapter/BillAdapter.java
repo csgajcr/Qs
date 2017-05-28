@@ -12,7 +12,6 @@ import com.jcrspace.manager_bill.model.BillDO;
 import com.jcrspace.ui_bill.R;
 import com.jcrspace.ui_bill.model.BillVO;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         holder.tvDate.setText(DateUtils.getDateTime(billVO.createTime));
         if (billVO.type== BillDO.TYPE.EXPENDITURE){
             holder.tvType.setText(R.string.expenditure);
-            holder.tvType.setBackgroundResource(R.drawable.bg_dependiture_header);
+            holder.tvType.setBackgroundResource(R.drawable.bg_expenditure_header);
             holder.tvMoney.setTextColor(context.getResources().getColor(R.color.safeRed));
         } else {
             holder.tvType.setText(R.string.income);
