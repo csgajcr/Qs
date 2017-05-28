@@ -55,6 +55,7 @@ public class AddBillActivity extends BaseAppCompatActivity {
         etComment = (EditText) findViewById(R.id.et_comment);
         rbExpenditure = (RadioButton) findViewById(R.id.rb_expenditure);
         rbIncome = (RadioButton) findViewById(R.id.rb_income);
+        showSoftInputFromWindow(etTitle);
     }
 
     private void initData(){

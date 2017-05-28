@@ -13,6 +13,9 @@ import com.jcrspace.ui_account.model.AccountVO;
 
 import org.xutils.ex.DbException;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
+
 /**
  * Created by jiangchaoren on 2017/3/31.
  */
@@ -26,6 +29,10 @@ public class HomeFacade extends BaseFacade {
         super(context, lander);
         accountManager = AccountManager.getInstance(lander);
         try {
+            //未登录默认则不去数据库读取
+            if (lander.getId().equals(UserLander.DEFAULT_LOCAL_USER_ID)){
+                return;
+            }
             AccountDO accountDO = accountManager.readUserInfo();
             //无法读取到数据则取消自动登录用户
             if (accountDO==null){
@@ -65,5 +72,22 @@ public class HomeFacade extends BaseFacade {
 
     public void refreshCurrentAccount(){
         getAccountInformation();
+    }
+
+    public void updateUserSex(final String sex){
+        accountManager.updateUserSex(sex, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e==null){
+                    AccountDO accountDO = currentAccount.accountDO;
+                    accountDO.sex = sex;
+                    try {
+                        accountManager.updateUserInfo(accountDO);
+                    } catch (DbException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }

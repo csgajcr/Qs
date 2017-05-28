@@ -106,4 +106,8 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     public interface OnItemLongClickListener{
         void onLongClick(BillVO billVO,int position);
     }
+
+    public void setBillVOList(List<BillVO> billVOList) {
+        this.billVOList = billVOList;
+    }
 }

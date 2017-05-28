@@ -15,7 +15,9 @@ import com.jcrspace.common.dialog.ConfirmDialog;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseFragment;
+import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_bill.event.AddBillSuccessEvent;
+import com.jcrspace.manager_bill.event.BillListRefreshEvent;
 import com.jcrspace.ui_bill.R;
 import com.jcrspace.ui_bill.adapter.BillAdapter;
 import com.jcrspace.ui_bill.facade.BillFacade;
@@ -105,5 +107,12 @@ public class BillFragment extends BaseFragment{
             adapter.notifyDataSetChanged();
         }
         adapter.notifyItemInserted(0);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBillListRefreshEvent(BillListRefreshEvent event){
+        billFacade.getBillList();
+        adapter.setBillVOList(billFacade.billVOList);
+        adapter.notifyDataSetChanged();
     }
 }

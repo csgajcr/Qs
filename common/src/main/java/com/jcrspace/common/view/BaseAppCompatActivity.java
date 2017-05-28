@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.jcrspace.common.Qs;
 import com.jcrspace.common.lander.UserLander;
@@ -65,5 +67,14 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         return lander;
     }
 
+    /**
+     * EditText获取焦点并显示软键盘
+     */
+    public void showSoftInputFromWindow(EditText editText) {
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    }
 
 }

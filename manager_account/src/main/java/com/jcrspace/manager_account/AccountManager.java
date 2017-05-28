@@ -14,8 +14,10 @@ import org.json.JSONArray;
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by jiangchaoren on 2017/2/27.
@@ -38,6 +40,7 @@ public class AccountManager extends BaseManager{
     public AccountManager(UserLander lander) {
         this.lander = lander;
         dbManager = lander.getDbManager();
+
     }
     public void deleteUserInfo() throws DbException{
         dbManager.deleteById(AccountDO.class,CURRENT_INDEX_ID);
@@ -49,9 +52,10 @@ public class AccountManager extends BaseManager{
     }
 
     public void updateUserInfo(AccountDO accountDO) throws DbException {
-        accountDO.id = CURRENT_INDEX_ID;
         dbManager.update(accountDO);
     }
+
+
 
     public void createUserInfo(AccountDO accountDO) throws DbException{
         dbManager.saveOrUpdate(accountDO);
@@ -64,6 +68,18 @@ public class AccountManager extends BaseManager{
         so.password = EncryptUtils.encryptMD5ToString(password);
         so.device_token = TokenManager.calcToken(userName);
         so.save(saveListener);
+    }
+
+    public void updateUserSex(String sex,UpdateListener listener){
+        AccountDO accountDO = null;
+        try {
+            accountDO = readUserInfo();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        accountDO.sex = sex;
+        AccountSO accountSO = convert(accountDO);
+        accountSO.update(accountDO.objectID,listener);
     }
 
     public void findAccountFromServer(String name, QueryListener<JSONArray> listener){
@@ -79,6 +95,7 @@ public class AccountManager extends BaseManager{
 
     public void logout(){
         lander.changeAccount(UserLander.DEFAULT_LOCAL_USER_ID);
+        Qs.getConfigSharedPreferences().edit().putString(QsCommonConfig.SP_AUTO_LOGIN_NAME,UserLander.DEFAULT_LOCAL_USER_ID).apply();
     }
 
     public void setAutoLoginUser(String username){
@@ -89,6 +106,7 @@ public class AccountManager extends BaseManager{
 
     public AccountSO convert(AccountDO accountDO){
         AccountSO so = new AccountSO();
+        so.id = accountDO.aid;
         so.device_token = accountDO.device_token;
         so.last_login_time = accountDO.last_login_time;
         so.mobile = accountDO.mobile;
@@ -96,6 +114,7 @@ public class AccountManager extends BaseManager{
         so.register_time = accountDO.register_time;
         so.sex = accountDO.sex;
         so.status = accountDO.status;
+        so.setObjectId(accountDO.objectID);
         return so;
     }
 }

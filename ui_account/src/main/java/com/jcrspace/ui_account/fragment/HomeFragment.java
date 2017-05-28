@@ -21,10 +21,12 @@ import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_account.event.LogoutEvent;
 import com.jcrspace.manager_account.model.AccountDO;
+import com.jcrspace.manager_bill.event.BillListRefreshEvent;
 import com.jcrspace.ui_account.R;
 import com.jcrspace.ui_account.facade.HomeFacade;
 import com.jcrspace.ui_account.model.AccountVO;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -87,7 +89,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-
+                    facade.updateUserSex(getString(R.string.male));
                 }
 
             }
@@ -96,7 +98,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-
+                    facade.updateUserSex(getString(R.string.female));
                 }
             }
         });
@@ -123,7 +125,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             ((ViewGroup)rlSex.getParent()).setVisibility(View.VISIBLE);
             AccountVO accountVO = facade.getAccountInformation();
             //TODO render account information
-            if (accountVO.getNickName()==null || accountVO.getNickName().equals("")){
+            if (accountVO.getNickName()==null){
                 tvNickName.setText(R.string.unset);
             } else {
                 tvNickName.setText(accountVO.getNickName());
@@ -159,9 +161,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         if (id == R.id.rl_about) {
             UrlBuilder.build(getActivity(), ActivityUrls.ABOUT).startActivity();
         } else if (id == R.id.rl_nickname){
-
+            UrlBuilder.build(getActivity(), ActivityUrls.CHANGE_NICKNAME).startActivity();
         } else if (id == R.id.rl_password){
-
+            UrlBuilder.build(getActivity(), ActivityUrls.CHANGE_PASSWORD).startActivity();
         } else if (id == R.id.rl_setting){
             UrlBuilder.build(getActivity(), ActivityUrls.SETTING).startActivity();
         } else if (id == R.id.fl_not_login){
@@ -175,8 +177,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLogoutEvent(LogoutEvent event){
-
         renderMenu();
+        EventBus.getDefault().post(new BillListRefreshEvent());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -184,6 +186,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         if (event.isSuccess){
             renderMenu();
             facade.refreshCurrentAccount();
+            EventBus.getDefault().post(new BillListRefreshEvent());
         }
     }
 

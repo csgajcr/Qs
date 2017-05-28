@@ -22,7 +22,8 @@
                     android:scheme="@string/scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"
+        <activity
+            android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -37,7 +38,8 @@
                     android:scheme="@string/scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity"
+        <activity
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -49,6 +51,37 @@
                 <data
                     android:host="@string/host"
                     android:pathPrefix="/login"
+                    android:scheme="@string/scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ChangeNickNameActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="@string/host"
+                    android:pathPrefix="/account/change_nickname"
+                    android:scheme="@string/scheme" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.ChangePasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="@string/host"
+                    android:pathPrefix="/account/change_password"
                     android:scheme="@string/scheme" />
             </intent-filter>
         </activity>

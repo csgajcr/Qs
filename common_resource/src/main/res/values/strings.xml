@@ -71,4 +71,11 @@
 
     <string name="male">男</string>
     <string name="female">女</string>
+    <string name="change_nickname">修改昵称</string>
+    <string name="change_password">修改密码</string>
+    <string name="nickname">昵称</string>
+    <string name="submit">提交</string>
+    <string name="old_password">原密码</string>
+    <string name="new_password">新密码</string>
+    <string name="nickname_not_null">昵称不能为空</string>
 </resources>

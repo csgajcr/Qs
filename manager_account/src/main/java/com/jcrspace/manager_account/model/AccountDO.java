@@ -16,10 +16,11 @@ public class AccountDO extends BaseDO {
     @Column(name = "aid")
     public int aid;
 
+    @Column(name = "objectId")
+    public String objectID;
+
     @Column(name = "mobile")
     public String mobile;
-
-//    public String password;
 
     @Column(name = "register_time")
     public long register_time;
@@ -51,5 +52,6 @@ public class AccountDO extends BaseDO {
         this.nick_name = accountSO.nick_name;
         this.mobile = accountSO.mobile;
         this.status = accountSO.status;
+        this.objectID = accountSO.getObjectId();
     }
 }

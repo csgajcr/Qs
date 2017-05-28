@@ -1,5 +1,6 @@
 package com.jcrspace.qsmain.activity;
 
+import android.accounts.Account;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.common.view.BottomNavigationViewEx;
+import com.jcrspace.manager_account.model.AccountDO;
 import com.jcrspace.manager_statistics.event.ChartAnimateEvent;
 import com.jcrspace.qsmain.R;
 import com.jcrspace.ui_account.fragment.HomeFragment;
@@ -22,6 +24,8 @@ import com.jcrspace.ui_bill.fragment.BillFragment;
 import com.jcrspace.ui_statistics.fragment.StatisticsFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.xutils.DbManager;
+import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +120,13 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void test(){
-
+//        getLander().changeAccount("13101375734");
+//        DbManager dbManager = getLander().getDbManager();
+//        try {
+//            dbManager.dropTable(AccountDO.class);
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
 //        UserLander lander = new UserLander(this,"user0001");
 //        AccountDO model = new AccountDO();
 //        model.device_token = "189dasodh218";

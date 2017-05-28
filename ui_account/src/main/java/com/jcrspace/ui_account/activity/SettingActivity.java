@@ -96,6 +96,8 @@ public class SettingActivity extends BaseAppCompatActivity {
         if (getLander().getId().equals(UserLander.DEFAULT_LOCAL_USER_ID)){
             btnExitLogin.setVisibility(View.GONE);
         }
+        boolean isAutoLogin = Qs.getConfigSharedPreferences().getBoolean(QsCommonConfig.SP_IS_AUTO_LOGIN,true);
+        swAutoLogin.setChecked(isAutoLogin);
     }
 
     @Override
