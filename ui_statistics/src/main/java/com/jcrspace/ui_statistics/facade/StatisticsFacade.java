@@ -74,8 +74,6 @@ public class StatisticsFacade extends BaseFacade {
             List<BillDO> dayBillDOs = new ArrayList<>();
             long dayLeft = sevenDayAgoTime + (i-1)*ConstUtils.DAY; //天左区间
             long dayRight = sevenDayAgoTime + (i)*ConstUtils.DAY;//天右区间
-            LogUtils.e(TimeUtils.millis2String(dayLeft));
-            LogUtils.e(TimeUtils.millis2String(dayRight));
             for (BillDO billDO:billDOList){
                 if (billDO.create_time<=dayRight && billDO.create_time>=dayLeft){
                     dayBillDOs.add(billDO);

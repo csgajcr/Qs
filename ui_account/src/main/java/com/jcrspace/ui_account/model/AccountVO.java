@@ -17,12 +17,13 @@ public class AccountVO {
         return accountDO.aid;
     }
 
-    public String getPhone(){
-        return accountDO.phone;
+    public String getMobile(){
+
+        return accountDO.mobile;
     }
 
-    public String getName(){
-        return accountDO.name;
+    public long getRegisterTime(){
+        return accountDO.register_time;
     }
 
     public String getSex(){

@@ -121,7 +121,7 @@ public class MainActivity extends BaseAppCompatActivity {
 //        AccountDO model = new AccountDO();
 //        model.device_token = "189dasodh218";
 //        model.last_login_time = 14333333333L;
-//        model.name = "123333";
+//        model.mobile = "123333";
 //        model.nick_name = "asdsadasd";
 
 

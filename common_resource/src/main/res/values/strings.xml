@@ -63,4 +63,12 @@
 
     <string name="register_success_please_login">注册成功!请立即登录吧</string>
     <string name="login_success">登录成功</string>
+    <string name="confirm_logout">确认退出用户吗?</string>
+    <string name="username_already_exist">用户名已存在</string>
+    <string name="day_for_use_qs">你使用轻算的第</string>
+    <string name="one_day">{number}天</string>
+    <string name="unset">未设置</string>
+
+    <string name="male">男</string>
+    <string name="female">女</string>
 </resources>

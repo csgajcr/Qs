@@ -13,4 +13,8 @@ public class QsCommonConfig {
     public static final String CONFIG_SP_FILE_NAME = "config.xml";
     public static final String ALIYUN_API_CODE = "6e1841a3cf1341ecb58e68682014b2da";
     public static final String LOCAL_ADDRESS_CITY_NAME = "重庆";
+
+
+    public static final String SP_IS_AUTO_LOGIN = "is_auto_login";
+    public static final String SP_AUTO_LOGIN_NAME = "auto_login";
 }

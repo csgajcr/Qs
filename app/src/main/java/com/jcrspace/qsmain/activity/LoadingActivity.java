@@ -52,13 +52,19 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     private void initLander(){
-        String autoLoginUserId = Qs.getConfigSharedPreferences().getString("auto_login","");
-        if (autoLoginUserId.equals("")){//无自动登录用户
+        if (Qs.getConfigSharedPreferences().getBoolean(QsCommonConfig.SP_IS_AUTO_LOGIN,true)){
+            String autoLoginUserId = Qs.getConfigSharedPreferences().getString(QsCommonConfig.SP_AUTO_LOGIN_NAME,"");
+            if (autoLoginUserId.equals("")){//无自动登录用户
+                UserLander lander = new UserLander(Qs.app,UserLander.DEFAULT_LOCAL_USER_ID);
+                Qs.lander = lander;
+            } else { //有自动登录用户
+                UserLander lander = new UserLander(Qs.app,autoLoginUserId);
+                Qs.lander = lander;
+            }
+        } else {
             UserLander lander = new UserLander(Qs.app,UserLander.DEFAULT_LOCAL_USER_ID);
             Qs.lander = lander;
-        } else { //有自动登录用户
-            UserLander lander = new UserLander(Qs.app,autoLoginUserId);
-            Qs.lander = lander;
         }
+
     }
 }

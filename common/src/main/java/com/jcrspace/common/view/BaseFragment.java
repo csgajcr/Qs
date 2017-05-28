@@ -22,6 +22,9 @@ public abstract class BaseFragment extends Fragment {
     protected View fragmentView;
     private UserLander lander;
 
+    public BaseFragment() {
+    }
+
     public BaseFragment(UserLander lander) {
         this.lander = lander;
     }

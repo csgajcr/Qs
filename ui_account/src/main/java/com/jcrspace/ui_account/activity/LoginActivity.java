@@ -55,6 +55,7 @@ public class LoginActivity extends BaseAppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         tvRegister = (TextView) findViewById(R.id.tv_register);
         dialog = new LoadingDialog(this);
+        dialog.setCancelable(false);
     }
 
     private void initListener(){
@@ -131,11 +132,11 @@ public class LoginActivity extends BaseAppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginCompleteEvent(LoginCompleteEvent event){
         dialog.dismiss();
-        //TODO 处理登录完成的数据
         if (event.isSuccess){
             ToastUtils.showShortToast(R.string.login_success);
-            Qs.lander.changeAccount(event.accountSO.name);
             finish();
+        } else {
+            ToastUtils.showShortToast(event.errorMessage);
         }
     }
 

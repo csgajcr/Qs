@@ -45,6 +45,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
         etConfirmPassword = (EditText) findViewById(R.id.et_confirm_password);
         btnRegister = (Button) findViewById(R.id.btn_register);
         loadingDialog = new LoadingDialog(this);
+        loadingDialog.setCancelable(false);
     }
 
     private void initListener(){
@@ -65,7 +66,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
 
     private void startRegister(){
         loadingDialog.show();
-
+        facade.register(etMobile.getText().toString(),etPassword.getText().toString());
     }
 
     /**

@@ -24,6 +24,10 @@ public class LoadingDialog {
 
     }
 
+    public void setCancelable(boolean flag){
+        dialog.setCancelable(flag);
+    }
+
     public void show(){
         dialog.show();
 //        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_loading_dialog);

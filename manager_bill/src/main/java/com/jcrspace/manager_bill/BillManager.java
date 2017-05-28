@@ -23,8 +23,6 @@ import cn.bmob.v3.listener.SaveListener;
  */
 
 public class BillManager extends BaseManager {
-    private DbManager dbManager;
-
     public static BillManager getInstance(UserLander userLander){
         try {
             return userLander.getManager(BillManager.class);
@@ -47,6 +45,9 @@ public class BillManager extends BaseManager {
 
     public List<BillDO> getBillList() throws DbException{
         List<BillDO> billDOs = dbManager.selector(BillDO.class).findAll();
+        if (billDOs==null){
+            return new ArrayList<>();
+        }
         return billDOs;
     }
 

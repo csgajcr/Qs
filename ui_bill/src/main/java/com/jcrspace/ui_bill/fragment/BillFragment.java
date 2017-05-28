@@ -40,6 +40,7 @@ public class BillFragment extends BaseFragment{
     private FrameLayout flEmptyView;
 
 
+
     public BillFragment(UserLander lander) {
         super(lander);
         billFacade = new BillFacade(getActivity(),lander);

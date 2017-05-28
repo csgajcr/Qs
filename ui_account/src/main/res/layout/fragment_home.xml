@@ -38,7 +38,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="13101375734"
+                    android:text=""
+                    android:id="@+id/tv_mobile"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"/>
@@ -53,7 +54,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="用户名"
+                    android:text="@string/day_for_use_qs"
                     android:textSize="16dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
@@ -62,7 +63,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="csgajcr"
+                    android:text=""
+                    android:id="@+id/tv_day"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"/>
@@ -136,6 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:id="@+id/tv_nick_name"
                         android:layout_toLeftOf="@+id/img_arrow"
                         android:text="蒋朝任" />
 

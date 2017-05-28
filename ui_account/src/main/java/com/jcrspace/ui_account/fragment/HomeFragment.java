@@ -8,8 +8,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ActivityUtils;
+import com.blankj.utilcode.utils.ConstUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.jcrspace.common.config.ActivityUrls;
@@ -18,6 +20,7 @@ import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_account.event.LogoutEvent;
+import com.jcrspace.manager_account.model.AccountDO;
 import com.jcrspace.ui_account.R;
 import com.jcrspace.ui_account.facade.HomeFacade;
 import com.jcrspace.ui_account.model.AccountVO;
@@ -45,6 +48,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private FrameLayout flNotLoginView;
     private RelativeLayout rlSex;
     private LinearLayout llSex;
+    private TextView tvNickName;
+    private TextView tvDay;
+    private TextView tvMobile;
 
     private HomeFacade facade;
 
@@ -70,6 +76,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         rlPhone = findViewById(R.id.rl_phone);
         rlSex = findViewById(R.id.rl_sex);
         llSex = findViewById(R.id.ll_sex);
+        tvDay = findViewById(R.id.tv_day);
+        tvMobile = findViewById(R.id.tv_mobile);
+        tvNickName = findViewById(R.id.tv_nick_name);
     }
 
     @Override
@@ -114,6 +123,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             ((ViewGroup)rlSex.getParent()).setVisibility(View.VISIBLE);
             AccountVO accountVO = facade.getAccountInformation();
             //TODO render account information
+            if (accountVO.getNickName()==null || accountVO.getNickName().equals("")){
+                tvNickName.setText(R.string.unset);
+            } else {
+                tvNickName.setText(accountVO.getNickName());
+            }
+            if (accountVO.getRegisterTime()>1){
+                long maxDay = (System.currentTimeMillis() - accountVO.getRegisterTime())/ ConstUtils.DAY + 1;
+                tvDay.setText(getString(R.string.one_day).replace("{number}",maxDay+""));
+            }
+            if (!accountVO.getMobile().equals("")){
+                tvMobile.setText(accountVO.getMobile());
+            }
+            if (accountVO.getSex()!=null && !accountVO.getSex().equals("")){
+                if (accountVO.getSex().equals(getString(R.string.male))){
+                    rbMale.setChecked(true);
+                } else {
+                    rbFemale.setChecked(true);
+                }
+            }
+
         } else {
             flNotLoginView.setVisibility(View.VISIBLE);
             ((ViewGroup)rlPassword.getParent()).setVisibility(View.GONE);
@@ -146,6 +175,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLogoutEvent(LogoutEvent event){
+
         renderMenu();
     }
 
@@ -153,6 +183,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onLoginCompleteEvent(LoginCompleteEvent event){
         if (event.isSuccess){
             renderMenu();
+            facade.refreshCurrentAccount();
         }
     }
 

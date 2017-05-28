@@ -1,5 +1,7 @@
 package com.jcrspace.ui_account.activity;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +10,9 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.jcrspace.common.Qs;
+import com.jcrspace.common.config.QsCommonConfig;
+import com.jcrspace.common.dialog.ConfirmDialog;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.manager_account.AccountManager;
@@ -48,7 +53,8 @@ public class SettingActivity extends BaseAppCompatActivity {
         swAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                SharedPreferences.Editor editor =  Qs.getConfigSharedPreferences().edit();
+                editor.putBoolean(QsCommonConfig.SP_IS_AUTO_LOGIN,isChecked).apply();
             }
         });
 
@@ -69,8 +75,16 @@ public class SettingActivity extends BaseAppCompatActivity {
         btnExitLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accountManager.logout();
-                EventBus.getDefault().post(new LogoutEvent());
+                ConfirmDialog dialog = new ConfirmDialog(SettingActivity.this,getString(R.string.confirm_logout));
+                dialog.setOnPositiveClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        accountManager.logout();
+                        EventBus.getDefault().post(new LogoutEvent());
+                        finish();
+                    }
+                });
+                dialog.show();
             }
         });
     }

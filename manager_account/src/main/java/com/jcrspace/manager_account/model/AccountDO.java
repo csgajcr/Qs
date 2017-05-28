@@ -16,8 +16,8 @@ public class AccountDO extends BaseDO {
     @Column(name = "aid")
     public int aid;
 
-    @Column(name = "name")
-    public String name;
+    @Column(name = "mobile")
+    public String mobile;
 
 //    public String password;
 
@@ -36,12 +36,20 @@ public class AccountDO extends BaseDO {
     @Column(name = "sex")
     public String sex;
 
-    @Column(name = "phone")
-    public String phone;
-
     @Column(name = "nick_name")
     public String nick_name;
 
+    public AccountDO() {
+    }
 
-
+    public AccountDO(AccountSO accountSO) {
+        this.aid = accountSO.id;
+        this.device_token = accountSO.device_token;
+        this.last_login_time = accountSO.last_login_time;
+        this.register_time = accountSO.register_time;
+        this.sex = accountSO.sex;
+        this.nick_name = accountSO.nick_name;
+        this.mobile = accountSO.mobile;
+        this.status = accountSO.status;
+    }
 }

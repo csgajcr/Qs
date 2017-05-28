@@ -1,7 +1,11 @@
 package com.jcrspace.common.lander;
 import android.content.Context;
+
+import com.jcrspace.common.manager.BaseManager;
 import com.jcrspace.common.utils.DbUtils;
 import org.xutils.DbManager;
+import org.xutils.db.DbManagerImpl;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,16 +18,22 @@ public class UserLander implements Lander {
     protected Map<Class, Object> managerMap = new HashMap<>();
     private DbManager dbManager;
     private String aid;
-    public static final String DEFAULT_LOCAL_USER_ID = "-1";
+    public static final String DEFAULT_LOCAL_USER_ID = "-1"; //无登录用户标识
 
     public UserLander(Context context, String aid) {
         this.context = context;
         this.aid = aid;
+        dbManager = getDbManager();
     }
 
     public void changeAccount(String aid){
         this.aid = aid;
-        managerMap.clear();
+        //TODO 转换DbManager
+        dbManager = DbUtils.getDbManager(getContext(), "account_" + aid);
+        for (Map.Entry<Class, Object> entry : managerMap.entrySet()) {
+            BaseManager manager = (BaseManager) entry.getValue();
+            manager.dbManager = dbManager;
+        }
     }
 
 
