@@ -12,6 +12,7 @@ import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.manager_bill.event.AddBillSuccessEvent;
 import com.jcrspace.manager_statistics.event.ChartAnimateEvent;
+import com.jcrspace.manager_statistics.event.RefreshChartEvent;
 import com.jcrspace.ui_statistics.R;
 import com.jcrspace.ui_statistics.facade.StatisticsFacade;
 
@@ -90,4 +91,10 @@ public class StatisticsFragment extends BaseFragment {
         chartSevenDay.animateY(3000);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshChartEvent(RefreshChartEvent event){
+        facade.refreshBillList();
+        renderHeader();
+        render7dayChart();
+    }
 }
