@@ -38,7 +38,7 @@ public class StatisticsFacade extends BaseFacade {
     }
 
     public float calcTotalIncome(){
-        int total=0;
+        float total=0;
         for (BillDO billDO : billDOList){
             if (billDO.type==BillDO.TYPE.INCOME){
                 total+=billDO.money;
@@ -48,7 +48,7 @@ public class StatisticsFacade extends BaseFacade {
     }
 
     public float calcTotalExpenditure(){
-        int total=0;
+        float total=0;
         for (BillDO billDO : billDOList){
             if (billDO.type==BillDO.TYPE.EXPENDITURE){
                 total+=billDO.money;
@@ -72,8 +72,10 @@ public class StatisticsFacade extends BaseFacade {
          */
         for (int i=1;i<=7;++i){
             List<BillDO> dayBillDOs = new ArrayList<>();
-            long dayLeft = sevenDayAgoTime + (i-1)*ConstUtils.DAY; //天左区间
-            long dayRight = sevenDayAgoTime + (i)*ConstUtils.DAY;//天右区间
+            long dayLeft = sevenDayAgoTime + (i)*ConstUtils.DAY; //天左区间
+            long dayRight = sevenDayAgoTime + (i+1)*ConstUtils.DAY;//天右区间
+            LogUtils.e(TimeUtils.millis2String(dayLeft));
+            LogUtils.e(TimeUtils.millis2String(dayRight));
             for (BillDO billDO:billDOList){
                 if (billDO.create_time<=dayRight && billDO.create_time>=dayLeft){
                     dayBillDOs.add(billDO);
@@ -81,6 +83,8 @@ public class StatisticsFacade extends BaseFacade {
             }
             allList.add(dayBillDOs);
         }
+
+        LogUtils.e(TimeUtils.millis2String(System.currentTimeMillis()));
         /**
          * 转换allList至EntryList
          */

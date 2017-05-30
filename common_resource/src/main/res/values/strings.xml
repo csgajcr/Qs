@@ -82,4 +82,9 @@
     <string name="unknown_error">未知的错误,请重试</string>
     <string name="change_password_success">修改密码成功</string>
     <string name="old_password_incorrect">原密码不正确</string>
+    <string name="sync_bill">同步账单</string>
+    <string name="not_login_cant_sync">您还没有登录,请登录后再进行同步账单吧</string>
+    <string name="sync_bill_success">同步账单成功</string>
+
+    <string name="is_need_merge_bill">检测到您本地有未归属的账单，是否将这些账单合并到您的账户下</string>
 </resources>

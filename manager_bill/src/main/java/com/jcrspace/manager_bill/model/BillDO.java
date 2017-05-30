@@ -20,6 +20,9 @@ public class BillDO extends BaseDO {
     @Column(name = "type")
     public int type;
 
+    @Column(name = "objectId")
+    public String objectId;
+
     @Column(name = "title")
     public String title;
 
@@ -29,14 +32,29 @@ public class BillDO extends BaseDO {
     @Column(name = "money")
     public float money;
 
-    @Column(name = "user_id")
-    public int user_id;
+    @Column(name = "username")
+    public String username;
 
     @Column(name = "create_time")
     public long create_time;
 
     @Column(name = "comment")
     public String comment;
+
+    public BillDO() {
+    }
+
+    public BillDO(BillSO billSO) {
+        this.bid = billSO.id;
+        this.type = billSO.type;
+        this.objectId = billSO.getObjectId();
+        this.title = billSO.title;
+        this.status = billSO.status;
+        this.money = billSO.money;
+        this.username = billSO.usermobile;
+        this.create_time = billSO.create_time;
+        this.comment = billSO.comment;
+    }
 
     public static class TYPE{
         public static final int UNSET = 0;

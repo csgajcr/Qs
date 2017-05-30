@@ -40,6 +40,7 @@ public class RecommendManager extends BaseManager {
         RequestParams params = new RequestParams(ApiUrls.API_WEATHER_URL);
         params.addBodyParameter("area", QsCommonConfig.LOCAL_ADDRESS_CITY_NAME);
         params.addHeader("Authorization","APPCODE " + QsCommonConfig.ALIYUN_API_CODE);
+        params.setCacheMaxAge(0);
         httpManager.get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

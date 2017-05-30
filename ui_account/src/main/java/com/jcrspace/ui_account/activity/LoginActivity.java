@@ -1,5 +1,7 @@
 package com.jcrspace.ui_account.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -17,11 +19,13 @@ import com.blankj.utilcode.utils.SpannableStringUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.jcrspace.common.Qs;
 import com.jcrspace.common.config.ActivityUrls;
+import com.jcrspace.common.dialog.ConfirmDialog;
 import com.jcrspace.common.dialog.LoadingDialog;
 import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_account.event.RegisterCompleteEvent;
+import com.jcrspace.manager_bill.event.BillListRefreshEvent;
 import com.jcrspace.ui_account.R;
 import com.jcrspace.ui_account.facade.LoginFacade;
 
@@ -135,7 +139,27 @@ public class LoginActivity extends BaseAppCompatActivity {
         dialog.dismiss();
         if (event.isSuccess){
             ToastUtils.showShortToast(R.string.login_success);
-            finish();
+            if (facade.isNeedMergeBill()){
+                ConfirmDialog dialog = new ConfirmDialog(this, getString(R.string.is_need_merge_bill));
+                dialog.setOnPositiveClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        facade.mergeBill();
+                        EventBus.getDefault().post(new BillListRefreshEvent());
+                        finish();
+                    }
+                });
+                dialog.setOnNegativeClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                dialog.setCancelable(false);
+                dialog.show();
+            } else {
+                finish();
+            }
         } else {
             ToastUtils.showShortToast(event.errorMessage);
         }

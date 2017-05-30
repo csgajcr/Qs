@@ -13,10 +13,13 @@ import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_account.model.AccountDO;
 import com.jcrspace.manager_account.model.AccountSO;
 import com.jcrspace.manager_account.model.AccountSOList;
+import com.jcrspace.manager_bill.BillManager;
+import com.jcrspace.manager_bill.model.BillDO;
 import com.jcrspace.ui_account.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
+import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 
 import java.util.List;
@@ -89,6 +92,43 @@ public class LoginFacade extends BaseFacade {
                 }
             }
         });
+    }
+
+    /**
+     * 是否需要合并本地和服务器数据
+     * @return
+     */
+    public boolean isNeedMergeBill(){
+        DbManager dbManager = lander.getDefaultUserDbManager();
+        try {
+            List<BillDO> billDOs = dbManager.selector(BillDO.class).findAll();
+            if (billDOs==null){
+                return false;
+            }
+            if (billDOs.size()>0){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void mergeBill(){
+        DbManager dbManager = lander.getDefaultUserDbManager();
+        try {
+            List<BillDO> billDOs = dbManager.selector(BillDO.class).findAll();
+            if (billDOs==null){
+                return;
+            }
+            BillManager billManager = BillManager.getInstance(lander);
+            billManager.saveBillList(billDOs);
+            dbManager.dropTable(BillDO.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
 }

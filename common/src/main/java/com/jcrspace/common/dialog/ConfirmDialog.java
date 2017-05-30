@@ -44,6 +44,10 @@ public class ConfirmDialog {
         this.onNegativeClickListener = onNegativeClickListener;
     }
 
+    public void setCancelable(boolean flag){
+        dialog.setCancelable(flag);
+    }
+
     public void show(){
         dialog.show();
         dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.safeRed));

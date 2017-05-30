@@ -36,6 +36,14 @@ public class UserLander implements Lander {
         }
     }
 
+    /**
+     * 获取默认用户的DbManager
+     * @return
+     */
+    public DbManager getDefaultUserDbManager(){
+        DbManager dbManager1 = DbUtils.getDbManager(getContext(), "account_" + DEFAULT_LOCAL_USER_ID);
+        return dbManager1;
+    }
 
     @Override
     public String getId() {

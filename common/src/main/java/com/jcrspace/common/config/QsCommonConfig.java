@@ -17,4 +17,5 @@ public class QsCommonConfig {
 
     public static final String SP_IS_AUTO_LOGIN = "is_auto_login";
     public static final String SP_AUTO_LOGIN_NAME = "auto_login";
+
 }

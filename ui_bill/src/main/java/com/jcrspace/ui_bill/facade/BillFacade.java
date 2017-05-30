@@ -12,6 +12,7 @@ import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -40,7 +41,13 @@ public class BillFacade extends BaseFacade {
                 billVOs.add(billVO);
             }
             billVOList = billVOs;
-            Collections.reverse(billVOList);
+
+            Collections.sort(billVOList, new Comparator<BillVO>() {
+                @Override
+                public int compare(BillVO billVO, BillVO t1) {
+                    return (int) (t1.createTime-billVO.createTime);
+                }
+            });
             return billVOList;
         } catch (DbException e) {
             e.printStackTrace();
