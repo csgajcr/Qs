@@ -7,17 +7,20 @@ import com.google.gson.Gson;
 import com.jcrspace.common.Qs;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.manager.BaseManager;
-import com.jcrspace.manager_bill.event.SyncCompleteEvent;
+import com.jcrspace.manager_bill.listener.SyncCompleteListener;
 import com.jcrspace.manager_bill.model.BillDO;
 import com.jcrspace.manager_bill.model.BillSO;
 import com.jcrspace.manager_bill.model.BillSOList;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
+import org.xutils.common.util.KeyValue;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import cn.bmob.v3.BmobBatch;
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobQuery;
@@ -34,10 +37,10 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 
 public class BillManager extends BaseManager {
-    public static BillManager getInstance(UserLander userLander){
+    public static BillManager getInstance(UserLander userLander) {
         try {
             return userLander.getManager(BillManager.class);
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             return userLander.putManager(new BillManager(userLander));
         }
     }
@@ -54,77 +57,63 @@ public class BillManager extends BaseManager {
         dbManager.saveOrUpdate(billDO);
     }
 
-    public List<BillDO> getBillList() throws DbException{
+    public List<BillDO> getBillList() throws DbException {
         List<BillDO> billDOs = dbManager.selector(BillDO.class).findAll();
-        if (billDOs==null){
+        if (billDOs == null) {
             return new ArrayList<>();
         }
         return billDOs;
     }
 
-    public void saveBillList(List<BillDO> billDOs) throws DbException{
+    public void saveBillList(List<BillDO> billDOs) throws DbException {
         dbManager.save(billDOs);
     }
 
-    public void deleteBill(BillDO billDO) throws DbException{
+    public void deleteBill(BillDO billDO) throws DbException {
         dbManager.delete(billDO);
     }
 
 
+    public void syncBillFromServer(final SyncCompleteListener syncCompleteListener) {
 
-    public void uploadAllBillToServer() throws DbException{
-
-        final List<BillDO> billDOList = getBillList();
+        final List<BillDO> billDOList;
+        try {
+            billDOList = getBillList();
+        } catch (DbException e) {
+            e.printStackTrace();
+            if (syncCompleteListener != null) {
+                syncCompleteListener.onError(e);
+            }
+            return;
+        }
         final List<BmobObject> billSOList = new ArrayList<>();
-        for (BillDO billDO: billDOList){
+        for (BillDO billDO : billDOList) {
             billSOList.add(convert(billDO));
         }
 
-        final QueryListListener<BatchResult> listener = new QueryListListener<BatchResult>(){
-            @Override
-            public void done(List<BatchResult> list, BmobException e) {
-                if (e==null){
-                    /**
-                     * 将已同步的本地账单列表设置ObjectId
-                     */
-                    for (int i=0;i<list.size();i++){
-                        BillDO billDO = billDOList.get(i);
-                        billDO.objectId = list.get(i).getObjectId();
-                    }
-                    try {
-                        dbManager.dropTable(BillDO.class);
-                        dbManager.save(billDOList);
-                        EventBus.getDefault().post(new SyncCompleteEvent(true,""));
-                    } catch (DbException e1) {
-                        e1.printStackTrace();
-                        EventBus.getDefault().post(new SyncCompleteEvent(true,Qs.app.getString(R.string.network_connect_failed)));
-                    }
-                } else {
-                    EventBus.getDefault().post(new SyncCompleteEvent(true,Qs.app.getString(R.string.network_connect_failed)));
-                }
-            }
-        };
 
         QueryListener queryListener = new QueryListener<JSONArray>() {
             @Override
             public void done(JSONArray jsonArray, BmobException e) {
-                if (e!=null){
-                    EventBus.getDefault().post(new SyncCompleteEvent(true,Qs.app.getString(R.string.network_connect_failed)));
+                if (e != null) {
+                    if (syncCompleteListener != null) {
+                        syncCompleteListener.onError(e);
+                    }
                     return;
                 }
                 Gson gson = new Gson();
-                final BillSOList bmobBillSOList = gson.fromJson("{billSOList:"+jsonArray.toString()+"} ",BillSOList.class);
+                final BillSOList bmobBillSOList = gson.fromJson("{billSOList:" + jsonArray.toString() + "} ", BillSOList.class);
                 List<BillSO> list = bmobBillSOList.billSOList;
                 /**
                  * 这里对比与云数据库的信息，有的就不管，多的就删，少的就上传
                  */
-                List<BmobObject> insertList; //需要上传的列表
+                final List<BmobObject> insertList; //需要上传的列表
                 List<BmobObject> deleteList = new ArrayList<>(); //需要删除的列表
                 List<BmobObject> equalWebList = new ArrayList<>();//无需变动的列表
                 List<BmobObject> equalLocalList = new ArrayList<>();//无需变动的列表
-                for (BmobObject so:list){
-                    for (BmobObject localSO:billSOList){
-                        if (so.getObjectId().equals(localSO.getObjectId())){ //如果相等，就在两个列表中都去除，代表不需要任何操作
+                for (BmobObject so : list) {
+                    for (BmobObject localSO : billSOList) {
+                        if (so.getObjectId().equals(localSO.getObjectId())) { //如果相等，就在两个列表中都去除，代表不需要任何操作
                             equalWebList.add(so);
                             equalLocalList.add(localSO);
                         }
@@ -133,10 +122,10 @@ public class BillManager extends BaseManager {
                 /**
                  * 删除相同项
                  */
-                for (BmobObject object:equalWebList){
+                for (BmobObject object : equalWebList) {
                     list.remove(object);
                 }
-                for (BmobObject object:equalLocalList){
+                for (BmobObject object : equalLocalList) {
                     billSOList.remove(object);
                 }
                 insertList = billSOList; //确定最终新增总列表
@@ -146,18 +135,72 @@ public class BillManager extends BaseManager {
                  * 设置表名，表名是通过List中的泛型的子类来获得的。也就是你不能直接给deleteList里面add BmobObject类型，
                  * 而是需要add BillSO(extend BmobObject)这样，SDK才可以根据这个deleteList来确定表明进行操作。
                  */
-                for (BillSO so:list){//确定最终删除总列表，为什么需要这样进行添加呢，因为List的泛型类型不同
+                for (BillSO so : list) {//确定最终删除总列表，为什么需要这样进行添加呢，因为List的泛型类型不同
                     deleteList.add(so);
                 }
-                new BmobBatch().insertBatch(insertList).doBatch(listener);
-                new BmobBatch().deleteBatch(deleteList).doBatch(new QueryListListener<BatchResult>() {
-                    @Override
-                    public void done(List<BatchResult> list, BmobException e) {
-                        LogUtils.e(list.get(0).getError().getMessage());
+                if (insertList.size()>0){//如果新增列表不为空，则新增
+                    new BmobBatch().insertBatch(insertList).doBatch(new QueryListListener<BatchResult>() {
+                        @Override
+                        public void done(List<BatchResult> list, BmobException e) {
+                            if (e == null) {
+                                /**
+                                 * 将已同步的本地账单列表设置ObjectId
+                                 */
+                                try {
+                                    /**
+                                     * 遍历新增list，将新增结果的ObjectId存到本地
+                                     */
+                                    for (int i=0;i<list.size();i++){
+                                        BmobObject object = insertList.get(i);
+                                        BillDO billDO = new BillDO((BillSO) object);
+                                        billDO.id = ((BillSO) object).id;
+                                        KeyValue kv = new KeyValue("objectId",list.get(i).getObjectId());
+                                        dbManager.update(BillDO.class, WhereBuilder.b("id","=",billDO.id),kv);
+                                    }
+                                    if (syncCompleteListener != null) {
+                                        syncCompleteListener.onSuccess();
+                                    }
+                                } catch (DbException e1) {
+                                    e1.printStackTrace();
+                                    if (syncCompleteListener != null) {
+                                        syncCompleteListener.onError(e1);
+                                    }
+                                }
+                            } else {
+                                if (syncCompleteListener != null) {
+                                    syncCompleteListener.onError(e);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    /**
+                     * 无需新增操作
+                     */
+                    if (syncCompleteListener != null) {
+                        syncCompleteListener.onSuccess();
                     }
-                });
+                }
+                /**
+                 * 删除操作
+                 */
+                if (deleteList.size()>0){
+                    new BmobBatch().deleteBatch(deleteList).doBatch(new QueryListListener<BatchResult>() {
+                        @Override
+                        public void done(List<BatchResult> list, BmobException e) {
+                            if (e==null){
+                                LogUtils.e(list.get(0).getError().getMessage());
+                            } else {
+                                LogUtils.e(e.getMessage());
+                            }
+                        }
+                    });
+                }
             }
         };
+
+
+
 
         getAllBillFromServer(queryListener);
         /**
@@ -181,10 +224,10 @@ public class BillManager extends BaseManager {
 //                });
 //            }
 //        } else {
-            /**
-             * Bmob云数据库和本地数据库同步数据，云数据库太坑，所以这里的做法很投机，没有考虑
-             * 两次请求失败的一次情况，代码不够严谨。不过真没想到什么好办法。
-             */
+        /**
+         * Bmob云数据库和本地数据库同步数据，云数据库太坑，所以这里的做法很投机，没有考虑
+         * 两次请求失败的一次情况，代码不够严谨。不过真没想到什么好办法。
+         */
 //            List<BmobObject> updateBillSOList = new ArrayList<>();
 //            for (BmobObject so:billSOList){
 //                if (!so.getObjectId().equals("")){
@@ -206,39 +249,41 @@ public class BillManager extends BaseManager {
 
     }
 
-    public void deleteAllbillOnServer(){
+    public void deleteAllbillOnServer() {
 
     }
 
-    public void getAllBillFromServer(QueryListener listener){
+    public void getAllBillFromServer(QueryListener<JSONArray> listener) {
         BmobQuery query = new BmobQuery("bill");
-        query.addWhereEqualTo("usermobile",Qs.lander.getId());
+        query.addWhereEqualTo("usermobile", Qs.lander.getId());
         query.findObjectsByTable(listener);
     }
 
-    public void uploadBillToServer(BillDO billDO, SaveListener listener){
+    public void uploadBillToServer(BillDO billDO, SaveListener listener) {
         BillSO so = convert(billDO);
         so.save();
-        }
+    }
 
     /**
      * DO转SO
      * bid是bill在服务器的id，上传时不赋值
+     *
      * @param billDO
      * @return
      */
-    public BillSO convert(BillDO billDO){
-        BillSO so= new BillSO();
+    public BillSO convert(BillDO billDO) {
+        BillSO so = new BillSO();
         so.comment = billDO.comment;
         so.create_time = billDO.create_time;
         so.money = billDO.money;
         so.status = billDO.status;
         so.title = billDO.title;
         so.type = billDO.type;
+        so.id = billDO.id;
         /**
          * 如果该账单有在服务器上有对应账单，则直接覆盖
          */
-        if (billDO.objectId!=null){
+        if (billDO.objectId != null) {
             so.setObjectId(billDO.objectId);
         }
         so.usermobile = Qs.lander.getId();

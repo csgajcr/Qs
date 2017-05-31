@@ -19,6 +19,8 @@ import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.common.view.BottomNavigationViewEx;
 import com.jcrspace.manager_bill.BillManager;
+import com.jcrspace.manager_bill.listener.SyncCompleteListener;
+import com.jcrspace.manager_bill.model.BillDO;
 import com.jcrspace.manager_statistics.event.ChartAnimateEvent;
 import com.jcrspace.qsmain.R;
 import com.jcrspace.manager_bill.event.SyncCompleteEvent;
@@ -30,10 +32,14 @@ import com.jcrspace.ui_statistics.fragment.StatisticsFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.xutils.DbManager;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.v3.exception.BmobException;
 
 public class MainActivity extends BaseAppCompatActivity {
 
@@ -138,11 +144,21 @@ public class MainActivity extends BaseAppCompatActivity {
     private void startSync(){
         loadingDialog.show();
         BillManager manager = BillManager.getInstance(getLander());
-        try {
-            manager.uploadAllBillToServer();
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+        manager.syncBillFromServer(new SyncCompleteListener() {
+            @Override
+            public void onSuccess() {
+                onSyncCompleteEvent(new SyncCompleteEvent(true,""));
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (e instanceof DbException){
+                    onSyncCompleteEvent(new SyncCompleteEvent(false,getString(R.string.local_database_error)));
+                } else if (e instanceof BmobException){
+                    onSyncCompleteEvent(new SyncCompleteEvent(false,getString(R.string.network_connect_failed)));
+                }
+            }
+        });
     }
 
     private void test(){
@@ -150,7 +166,8 @@ public class MainActivity extends BaseAppCompatActivity {
 //        getLander().changeAccount("13101375734");
 //        DbManager dbManager = getLander().getDbManager();
 //        try {
-//            dbManager.dropTable(BillDO.class);
+//            dbManager.delete(BillDO.class, WhereBuilder.b("id","=",3));
+//            dbManager.delete(BillDO.class, WhereBuilder.b("id","=",4));
 //        } catch (DbException e) {
 //            e.printStackTrace();
 //        }

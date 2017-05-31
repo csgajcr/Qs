@@ -61,14 +61,16 @@ public class SettingActivity extends BaseAppCompatActivity {
         swRecommend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                SharedPreferences.Editor editor =  Qs.getConfigSharedPreferences().edit();
+                editor.putBoolean(QsCommonConfig.SP_NEW_MESSAGE_PUSH,isChecked).apply();
             }
         });
 
         swSync.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                SharedPreferences.Editor editor =  Qs.getConfigSharedPreferences().edit();
+                editor.putBoolean(QsCommonConfig.SP_IS_AUTO_SYNC_BILL,isChecked).apply();
             }
         });
 
@@ -98,6 +100,10 @@ public class SettingActivity extends BaseAppCompatActivity {
         }
         boolean isAutoLogin = Qs.getConfigSharedPreferences().getBoolean(QsCommonConfig.SP_IS_AUTO_LOGIN,true);
         swAutoLogin.setChecked(isAutoLogin);
+        boolean isRecommend = Qs.getConfigSharedPreferences().getBoolean(QsCommonConfig.SP_NEW_MESSAGE_PUSH,true);
+        swRecommend.setChecked(isRecommend);
+        boolean isAutoSync = Qs.getConfigSharedPreferences().getBoolean(QsCommonConfig.SP_IS_AUTO_SYNC_BILL,true);
+        swSync.setChecked(isAutoSync);
     }
 
     @Override

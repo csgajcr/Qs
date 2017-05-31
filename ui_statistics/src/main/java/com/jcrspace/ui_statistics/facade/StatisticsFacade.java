@@ -65,15 +65,16 @@ public class StatisticsFacade extends BaseFacade {
         /**
          * 获取7天前的开始时间
          */
-        long sevenDayAgoTime = (System.currentTimeMillis() / ConstUtils.DAY )* ConstUtils.DAY -8 * ConstUtils.HOUR - 6 * ConstUtils.DAY;
+        long sevenDayAgoTime = (System.currentTimeMillis() / ConstUtils.DAY) * ConstUtils.DAY - 8 * ConstUtils.HOUR - 6 * ConstUtils.DAY;
+
         /**
          * 得出每一天的时间戳区间，并判断该时段是否有账单
          * 判断结果整合至啊allList
          */
         for (int i=1;i<=7;++i){
             List<BillDO> dayBillDOs = new ArrayList<>();
-            long dayLeft = sevenDayAgoTime + (i)*ConstUtils.DAY; //天左区间
-            long dayRight = sevenDayAgoTime + (i+1)*ConstUtils.DAY;//天右区间
+            long dayLeft = sevenDayAgoTime + (i-1)*ConstUtils.DAY; //天左区间
+            long dayRight = sevenDayAgoTime + (i)*ConstUtils.DAY;//天右区间
             LogUtils.e(TimeUtils.millis2String(dayLeft));
             LogUtils.e(TimeUtils.millis2String(dayRight));
             for (BillDO billDO:billDOList){

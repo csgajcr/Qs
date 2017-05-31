@@ -131,7 +131,7 @@ public class LoginActivity extends BaseAppCompatActivity {
     }
 
     /**
-     * 登录完成
+     * 登录完成,根据当前状态判断是否需要合并账单
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)

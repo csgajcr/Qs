@@ -17,5 +17,8 @@ public class QsCommonConfig {
 
     public static final String SP_IS_AUTO_LOGIN = "is_auto_login";
     public static final String SP_AUTO_LOGIN_NAME = "auto_login";
+    public static final String SP_LAST_SYNC_TIME = "last_sync_time";
+    public static final String SP_IS_AUTO_SYNC_BILL = "is_auto_sync_bill";
+    public static final String SP_NEW_MESSAGE_PUSH = "is_new_message_push";
 
 }

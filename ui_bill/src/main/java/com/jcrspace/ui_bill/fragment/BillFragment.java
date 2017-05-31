@@ -90,6 +90,7 @@ public class BillFragment extends BaseFragment{
                     public void onClick(DialogInterface dialog, int which) {
                         billFacade.deleteBill(billVO);
                         billFacade.billVOList.remove(billVO);
+                        EventBus.getDefault().post(new RefreshChartEvent());
                         adapter.notifyDataSetChanged();
                     }
                 });

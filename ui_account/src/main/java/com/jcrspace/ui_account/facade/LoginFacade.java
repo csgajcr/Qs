@@ -14,7 +14,12 @@ import com.jcrspace.manager_account.model.AccountDO;
 import com.jcrspace.manager_account.model.AccountSO;
 import com.jcrspace.manager_account.model.AccountSOList;
 import com.jcrspace.manager_bill.BillManager;
+import com.jcrspace.manager_bill.event.BillListRefreshEvent;
+import com.jcrspace.manager_bill.event.SyncCompleteEvent;
+import com.jcrspace.manager_bill.listener.SyncCompleteListener;
 import com.jcrspace.manager_bill.model.BillDO;
+import com.jcrspace.manager_bill.model.BillSO;
+import com.jcrspace.manager_bill.model.BillSOList;
 import com.jcrspace.ui_account.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,6 +27,7 @@ import org.json.JSONArray;
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
@@ -35,9 +41,12 @@ import cn.bmob.v3.listener.UpdateListener;
 public class LoginFacade extends BaseFacade {
 
     private AccountManager accountManager;
+    private BillManager billManager;
+
     public LoginFacade(Context context, UserLander lander) {
         super(context, lander);
         accountManager = AccountManager.getInstance(lander);
+        billManager = BillManager.getInstance(lander);
     }
 
     /**
@@ -75,6 +84,8 @@ public class LoginFacade extends BaseFacade {
                                 try {
                                     accountManager.createUserInfo(new AccountDO(accountSO));
                                     accountManager.setAutoLoginUser(accountSO.mobile);
+                                    //TODO 拉取服务器账单
+
                                 } catch (DbException e1) {
                                     e1.printStackTrace();
                                 }
@@ -117,13 +128,15 @@ public class LoginFacade extends BaseFacade {
     }
 
     public void mergeBill(){
+        /**
+         * 获取未登录用户的dbmananger
+         */
         DbManager dbManager = lander.getDefaultUserDbManager();
         try {
             List<BillDO> billDOs = dbManager.selector(BillDO.class).findAll();
             if (billDOs==null){
                 return;
             }
-            BillManager billManager = BillManager.getInstance(lander);
             billManager.saveBillList(billDOs);
             dbManager.dropTable(BillDO.class);
         } catch (DbException e) {

@@ -87,4 +87,5 @@
     <string name="sync_bill_success">同步账单成功</string>
 
     <string name="is_need_merge_bill">检测到您本地有未归属的账单，是否将这些账单合并到您的账户下</string>
+    <string name="local_database_error">同步数据存储失败</string>
 </resources>
