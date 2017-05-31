@@ -133,6 +133,11 @@ public class RecommendFragment extends BaseFragment {
         tvHelloWorld.setText(getString(R.string.hello_words).replace("{words}",wordList.get(randomNumber)));
     }
 
+    /**
+     * 从Assets中获取推荐语
+     * @param fileName
+     * @return
+     */
     public List<String> getWordsFromAssets(String fileName){
         try {
             InputStreamReader inputReader = new InputStreamReader( getResources().getAssets().open(fileName) );

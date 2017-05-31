@@ -73,7 +73,18 @@ public class BillManager extends BaseManager {
         dbManager.delete(billDO);
     }
 
-
+    /**
+     * 同步数据
+     * 规则：
+     * 从服务器上拉去该用户的账单List
+     * 与本地List对比，如果未改变并且已存在，则不更改。
+     * 通过对比得出需要删除的和需要新增的，执行批量操作
+     *
+     * 注：此方法不支持50条以上的同时操作，这是一个BUG
+     * 当上传、删除50条以上时，可能会有异常发生
+     *
+     * @param syncCompleteListener
+     */
     public void syncBillFromServer(final SyncCompleteListener syncCompleteListener) {
 
         final List<BillDO> billDOList;
@@ -202,19 +213,14 @@ public class BillManager extends BaseManager {
 
     }
 
-    public void deleteAllbillOnServer() {
-
-    }
-
+    /**
+     * 获取当前用户在服务器上的账单数据
+     * @param listener
+     */
     public void getAllBillFromServer(QueryListener<JSONArray> listener) {
         BmobQuery query = new BmobQuery("bill");
         query.addWhereEqualTo("usermobile", Qs.lander.getId());
         query.findObjectsByTable(listener);
-    }
-
-    public void uploadBillToServer(BillDO billDO, SaveListener listener) {
-        BillSO so = convert(billDO);
-        so.save();
     }
 
     /**

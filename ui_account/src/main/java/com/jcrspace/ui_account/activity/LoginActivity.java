@@ -131,6 +131,10 @@ public class LoginActivity extends BaseAppCompatActivity {
         super.onDestroy();
     }
 
+    /**
+     * 从服务器上拉取数据到本地
+     * 和同步不同
+     */
     public void downloadBillFromServer(){
         final LoadingDialog dialog = new LoadingDialog(this);
         dialog.setCancelable(false);
@@ -162,6 +166,10 @@ public class LoginActivity extends BaseAppCompatActivity {
         if (event.isSuccess){
             ToastUtils.showShortToast(R.string.login_success);
             if (facade.isNeedMergeBill()){
+                /**
+                 * 需要合并账单，提示用户是否需要合并
+                 * 如果合并，则以本地账单为准
+                 */
                 ConfirmDialog dialog = new ConfirmDialog(this, getString(R.string.is_need_merge_bill));
                 dialog.setOnPositiveClickListener(new DialogInterface.OnClickListener() {
                     @Override
@@ -171,6 +179,9 @@ public class LoginActivity extends BaseAppCompatActivity {
                         finish();
                     }
                 });
+                /**
+                 * 如果不合并，则从服务器拉取刚用户的账单
+                 */
                 dialog.setOnNegativeClickListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -180,6 +191,10 @@ public class LoginActivity extends BaseAppCompatActivity {
                 dialog.setCancelable(false);
                 dialog.show();
             } else {
+                /**
+                 * 如果不需要合并账单，那么判断是否已含有本地数据
+                 * 如果没有则从服务器拉取
+                 */
                 if (!facade.isHaveLocalData()){
                     downloadBillFromServer();
                 } else {

@@ -36,6 +36,10 @@ public class RecommendManager extends BaseManager {
         httpManager = x.http();
     }
 
+    /**
+     * 获取天气信息
+     * @param onGetWeatherCompleteListener
+     */
     public void getWeatherInfoFromServer(final OnGetWeatherCompleteListener onGetWeatherCompleteListener){
         RequestParams params = new RequestParams(ApiUrls.API_WEATHER_URL);
         params.addBodyParameter("area", QsCommonConfig.LOCAL_ADDRESS_CITY_NAME);

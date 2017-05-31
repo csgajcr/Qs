@@ -57,6 +57,10 @@ public class StatisticsFacade extends BaseFacade {
         return total;
     }
 
+    /**
+     * 通过此函数计算出图表的数据
+     * @return
+     */
     public List<Entry> getLastSevenDayChartEntryList(){
         /**
          * 定义总的列表。List有7个元素，分别代表7天每一天的账单List
@@ -96,6 +100,11 @@ public class StatisticsFacade extends BaseFacade {
         return entries;
     }
 
+    /**
+     * 计算当天的开支平均
+     * @param billDOs
+     * @return
+     */
     public float calcBillListMoneyAverage(List<BillDO> billDOs){
         float average = 0;
         for (BillDO billDO:billDOs){
@@ -108,6 +117,9 @@ public class StatisticsFacade extends BaseFacade {
         return average;
     }
 
+    /**
+     * 刷新账单列表
+     */
     public void refreshBillList(){
         try {
             billDOList = billManager.getBillList();

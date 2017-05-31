@@ -143,6 +143,10 @@ public class LoginFacade extends BaseFacade {
         }
     }
 
+    /**
+     * 从服务器上拉取账单到本地（和同步不一样，同步上以本地为基准对服务器进行操作）
+     * @param listener
+     */
     public void getAllBillFromServer(final DownloadBillListener listener){
         billManager.getAllBillFromServer(new QueryListener<JSONArray>() {
             @Override

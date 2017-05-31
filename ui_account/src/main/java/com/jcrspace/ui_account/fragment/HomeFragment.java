@@ -190,6 +190,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         EventBus.getDefault().post(new BillListRefreshEvent());
     }
 
+    /**
+     * 登录成功或失败后事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginCompleteEvent(LoginCompleteEvent event){
         if (event.isSuccess){
@@ -199,6 +203,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         }
     }
 
+    /**
+     * 昵称变更事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onChangeNicknameEvent(ChangeNicknameEvent event){
         tvNickName.setText(event.accountDO.nick_name);

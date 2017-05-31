@@ -69,6 +69,9 @@ public class StatisticsFragment extends BaseFragment {
         tvExpenditure.setText(getString(R.string.expenditure)+" - "+facade.calcTotalExpenditure());
     }
 
+    /**
+     * 绘制7天内数据的图表
+     */
     private void render7dayChart(){
         List<Entry> entries = facade.getLastSevenDayChartEntryList();
         LineDataSet dataSet = new LineDataSet(entries,getString(R.string.money));
@@ -79,6 +82,10 @@ public class StatisticsFragment extends BaseFragment {
 
     }
 
+    /**
+     * 添加账单成功Event
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddBillSuccessEvent(AddBillSuccessEvent event){
         LogUtils.e("onAddBillSuccessEvent");
@@ -87,11 +94,19 @@ public class StatisticsFragment extends BaseFragment {
         render7dayChart();
     }
 
+    /**
+     * 需要图表重新显示动画事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onChartAnimateEvent(ChartAnimateEvent event){
         chartSevenDay.animateY(3000);
     }
 
+    /**
+     * 刷新图表数据事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshChartEvent(RefreshChartEvent event){
         facade.refreshBillList();

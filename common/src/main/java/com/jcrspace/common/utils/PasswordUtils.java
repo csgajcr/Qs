@@ -9,6 +9,12 @@ import org.xutils.common.util.MD5;
  * Created by jiangchaoren on 2017/3/28.
  */
 
+/**
+ * 最初设计用于密码加密
+ * 后来因为太赶，直接使用的MD5进行加密
+ * 故此类没用用到
+ */
+@Deprecated
 public class PasswordUtils {
     private static final String ENCRYPT_KEY = "QS";
 

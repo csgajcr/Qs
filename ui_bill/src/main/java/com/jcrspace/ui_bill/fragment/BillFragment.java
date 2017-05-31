@@ -115,7 +115,10 @@ public class BillFragment extends BaseFragment{
         rvBill.setEmptyView(flEmptyView);
     }
 
-
+    /**
+     * 添加订单成功事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddBillSuccessEvent(AddBillSuccessEvent event){
         LogUtils.e("onAddBillSuccessEvent");
@@ -126,6 +129,10 @@ public class BillFragment extends BaseFragment{
         adapter.notifyItemInserted(0);
     }
 
+    /**
+     * 需要刷新账单列表事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onBillListRefreshEvent(BillListRefreshEvent event){
         billFacade.getBillList();
@@ -134,6 +141,10 @@ public class BillFragment extends BaseFragment{
         EventBus.getDefault().post(new RefreshChartEvent());
     }
 
+    /**
+     * 账单编辑事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onModifyBillSuccessEvent(ModifyBillSuccessEvent event){
         onBillListRefreshEvent(new BillListRefreshEvent());

@@ -10,6 +10,10 @@ import com.jcrspace.common.config.QsCommonConfig;
  * Created by jiangchaoren on 2017/2/27.
  */
 
+/**
+ * Uri路由跳转类
+ * 用户Activity之间的跳转
+ */
 public class UrlBuilder {
 
     private Activity activity;
