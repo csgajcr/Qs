@@ -12,7 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ConstUtils;
 import com.blankj.utilcode.utils.ToastUtils;
+import com.jcrspace.common.Qs;
+import com.jcrspace.common.config.QsCommonConfig;
 import com.jcrspace.common.dialog.LoadingDialog;
 import com.jcrspace.common.dialog.TipDialog;
 import com.jcrspace.common.lander.UserLander;
@@ -139,6 +142,18 @@ public class MainActivity extends BaseAppCompatActivity {
         navigation.enableShiftingMode(false);
         vpContent.setOffscreenPageLimit(3);
         setTitle(R.string.bill);
+        /**
+         * 判断自动同步
+         */
+        if (Qs.getConfigSharedPreferences().getBoolean(QsCommonConfig.SP_IS_AUTO_SYNC_BILL,true) && !getLander().getId().equals(UserLander.DEFAULT_LOCAL_USER_ID)){
+            /**
+             * 同步时间间隔大于一天
+             */
+            if (System.currentTimeMillis() - Qs.getConfigSharedPreferences().getLong(QsCommonConfig.SP_LAST_SYNC_TIME,0)> ConstUtils.DAY){
+                startSync();
+                Qs.getConfigSharedPreferences().edit().putLong(QsCommonConfig.SP_LAST_SYNC_TIME,System.currentTimeMillis()).apply();
+            }
+        }
     }
 
     private void startSync(){
