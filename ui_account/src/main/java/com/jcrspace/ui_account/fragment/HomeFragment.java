@@ -14,6 +14,7 @@ import com.blankj.utilcode.utils.ActivityUtils;
 import com.blankj.utilcode.utils.ConstUtils;
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.ToastUtils;
+import com.jcrspace.common.Qs;
 import com.jcrspace.common.config.ActivityUrls;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.router.UrlBuilder;
@@ -57,8 +58,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     private HomeFacade facade;
 
-    public HomeFragment(UserLander lander) {
-        super(lander);
+    public HomeFragment() {
+        lander = Qs.lander;
     }
 
     @Override

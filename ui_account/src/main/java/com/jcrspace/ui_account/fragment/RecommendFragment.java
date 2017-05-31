@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
+import com.jcrspace.common.Qs;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.manager.RecommendManager;
 import com.jcrspace.common.model.WeatherSO;
@@ -48,9 +49,8 @@ public class RecommendFragment extends BaseFragment {
 
     private RecommendManager.OnGetWeatherCompleteListener onGetWeatherCompleteListener;
 
-
-    public RecommendFragment(UserLander lander) {
-        super(lander);
+    public RecommendFragment() {
+        lander = Qs.lander;
         recommendManager = RecommendManager.getInstance(lander);
     }
 
@@ -104,6 +104,7 @@ public class RecommendFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
         startGetRecommendInfo();
         renderHelloWords();
     }

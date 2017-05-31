@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import com.blankj.utilcode.utils.LogUtils;
 import com.blankj.utilcode.utils.ToastUtils;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.jcrspace.common.Qs;
 import com.jcrspace.common.config.ActivityUrls;
 import com.jcrspace.common.dialog.ConfirmDialog;
 import com.jcrspace.common.lander.UserLander;
@@ -43,11 +44,8 @@ public class BillFragment extends BaseFragment{
     private BillAdapter adapter;
     private FrameLayout flEmptyView;
 
-
-
-    public BillFragment(UserLander lander) {
-        super(lander);
-        billFacade = new BillFacade(getActivity(),lander);
+    public BillFragment() {
+        billFacade = new BillFacade(getActivity(), Qs.lander);
     }
 
     @Override

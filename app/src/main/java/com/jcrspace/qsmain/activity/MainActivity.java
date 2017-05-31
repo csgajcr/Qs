@@ -139,10 +139,10 @@ public class MainActivity extends BaseAppCompatActivity {
     private void initData(){
         test();
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new BillFragment(getLander()));
-        fragments.add(new StatisticsFragment(getLander()));
-        fragments.add(new RecommendFragment(getLander()));
-        fragments.add(new HomeFragment(getLander()));
+        fragments.add(new BillFragment());
+        fragments.add(new StatisticsFragment());
+        fragments.add(new RecommendFragment());
+        fragments.add(new HomeFragment());
         EventBus.getDefault().register(fragments.get(0)); //为BillFragment绑定EventBus
         EventBus.getDefault().register(fragments.get(1));
         EventBus.getDefault().register(fragments.get(3));

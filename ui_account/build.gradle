@@ -30,5 +30,4 @@ dependencies {
     compile project(':manager_account')
 
     compile project(':manager_bill')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

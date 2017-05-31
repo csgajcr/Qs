@@ -8,6 +8,7 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.jcrspace.common.Qs;
 import com.jcrspace.common.lander.UserLander;
 import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.manager_bill.event.AddBillSuccessEvent;
@@ -34,8 +35,8 @@ public class StatisticsFragment extends BaseFragment {
 
     private StatisticsFacade facade;
 
-    public StatisticsFragment(UserLander lander) {
-        super(lander);
+    public StatisticsFragment() {
+        lander = Qs.lander;
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jcrspace.common.Qs;
 import com.jcrspace.common.R;
 import com.jcrspace.common.lander.UserLander;
 
@@ -20,15 +21,11 @@ import org.greenrobot.eventbus.EventBus;
 
 public abstract class BaseFragment extends Fragment {
     protected View fragmentView;
-    private UserLander lander;
+    protected UserLander lander;
 
     public BaseFragment() {
+        lander = Qs.lander;
     }
-
-    public BaseFragment(UserLander lander) {
-        this.lander = lander;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
