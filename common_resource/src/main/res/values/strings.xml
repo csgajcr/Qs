@@ -6,4 +6,89 @@
     <string name="home">我</string>
     <string name="recent">最近</string>
     <string name="feature">功能</string>
+    <string name="bill">账单</string>
+    <string name="plan">计划</string>
+    <string name="recommend">推荐</string>
+    <string name="save">保存</string>
+    <string name="add_bill">添加账单</string>
+    <string name="comment">备注</string>
+    <string name="price">金额</string>
+    <string name="bill_title">账单标题</string>
+    <string name="price_max_length_2">金额小数点后最多2位</string>
+    <string name="price_max_value">金额超过最大值，请重新输入</string>
+    <string name="price_not_null">金额不能为空</string>
+    <string name="bill_title_not_null">订单标题不能为空</string>
+    <string name="expenditure">支出</string>
+    <string name="income">收入</string>
+    <string name="add_bill_success">添加账单成功</string>
+    <string name="modify_bill_success">编辑账单成功</string>
+
+
+    <string name="date_time_format1">yyyy/MM/dd</string>
+    <string name="date_time_format2">yyyy/MM/dd HH:mm</string>
+    <!--今年今天时间-->
+    <string name="date_time_format_day">HH:mm</string>
+    <!--今年昨天时间-->
+    <string name="date_time_format_yesterday">昨天</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="mobile">手机号</string>
+    <string name="password">密码</string>
+    <string name="havent_mobile_goto_register">还没有账号？立即注册</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="no_bill_click_add">你还没有账单哦\n点击右下角的按钮添加账单!</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="tip">提示</string>
+    <string name="confirm_delete_bill">确认删除该账单吗？</string>
+    <string name="error_network_not_connect">获取天气信息失败\n请点击刷新重试</string>
+
+    <string name="wind_direction">风向：</string>
+    <string name="wind_power">风力：</string>
+    <string name="humidity">湿度：</string>
+    <string name="PM2_5">可入肺颗粒物(PM2.5)：</string>
+    <string name="aqi_quality">空气质量：</string>
+    <string name="hello_words">「{words}」</string>
+    <string name="money">金额</string>
+    <string name="seven_day_money_count_table">7天内开支统计表:</string>
+    <string name="statistics">统计</string>
+    <string name="not_login_press_goto_login">您还没登录哦，请点此登录吧!</string>
+    <string name="username_password_invalid">用户名或密码错误</string>
+    <string name="network_connect_failed">网络连接失败,请检查您的网络设置</string>
+    <string name="mobile_format_error">手机号码格式错误</string>
+    <string name="password_too_short">密码不能少于6位</string>
+    <string name="password_not_equal">两次输入密码不相等</string>
+
+    <string name="register_success_please_login">注册成功!请立即登录吧</string>
+    <string name="login_success">登录成功</string>
+    <string name="confirm_logout">确认退出用户吗?</string>
+    <string name="username_already_exist">用户名已存在</string>
+    <string name="day_for_use_qs">你使用轻算的第</string>
+    <string name="one_day">{number}天</string>
+    <string name="unset">未设置</string>
+
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="change_nickname">修改昵称</string>
+    <string name="change_password">修改密码</string>
+    <string name="nickname">昵称</string>
+    <string name="submit">提交</string>
+    <string name="old_password">原密码</string>
+    <string name="new_password">新密码</string>
+    <string name="nickname_not_null">昵称不能为空</string>
+    <string name="change_success">修改成功</string>
+    <string name="unknown_error">未知的错误,请重试</string>
+    <string name="change_password_success">修改密码成功</string>
+    <string name="old_password_incorrect">原密码不正确</string>
+    <string name="sync_bill">同步账单</string>
+    <string name="not_login_cant_sync">您还没有登录,请登录后再进行同步账单吧</string>
+    <string name="sync_bill_success">同步账单成功</string>
+
+    <string name="is_need_merge_bill">检测到您本地有未归属的账单，是否将这些账单合并到您的账户下</string>
+    <string name="local_database_error">同步数据存储失败</string>
+    <string name="downloading_bill">正在同步服务器订单数据...</string>
+    <string name="modify_bill">编辑账单</string>
+    <string name="mutidevice_login">出于安全原因，请重新登录您的账号</string>
 </resources>

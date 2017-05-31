@@ -33,6 +33,7 @@ public class DbUtils {
         return DbManagerImpl.getInstance(getDbManagerDaoConfig(context, null, name));
     }
 
+
     /**
      * 返回xutils3.0的数据库管理类
      *

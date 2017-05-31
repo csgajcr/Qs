@@ -15,8 +15,8 @@ import java.util.concurrent.ExecutorService;
  */
 
 public class Qs {
-    public static final ExecutorService threadPool = QsThreadPool.newPauseThreadPool();
-    public static UserLander lander;
+    public static final ExecutorService threadPool = QsThreadPool.newPauseThreadPool(); //用户执行后台任务
+    public static UserLander lander; //全局用户数据管理器
     public static Application app;
     private static SharedPreferences configSharedPreferences;
 

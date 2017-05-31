@@ -6,7 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
+
+    <string name="LoadingDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+    </string>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

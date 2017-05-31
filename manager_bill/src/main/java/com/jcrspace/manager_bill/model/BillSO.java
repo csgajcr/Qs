@@ -18,7 +18,7 @@ public class BillSO extends BmobObject {
 
     public float money;
 
-    public int user_id;
+    public String usermobile;
 
     public long create_time;
 

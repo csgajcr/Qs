@@ -26,6 +26,9 @@ public class QsApplication extends Application {
         Qs.init(this);
     }
 
+    /**
+     * 开发者模式，开启Stetho
+     */
     private void openDevMode(){
         Stetho.initializeWithDefaults(this);
     }

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="vertical" android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <FrameLayout
@@ -16,7 +17,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="您还没登录哦，请先登录吧!"/>
+                    android:text="@string/not_login_press_goto_login"/>
             </FrameLayout>
 
 
@@ -37,7 +38,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="13101375734"
+                    android:text=""
+                    android:id="@+id/tv_mobile"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"/>
@@ -52,7 +54,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="用户名"
+                    android:text="@string/day_for_use_qs"
                     android:textSize="16dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
@@ -61,7 +63,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="csgajcr"
+                    android:text=""
+                    android:id="@+id/tv_day"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"/>
@@ -71,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
+                android:id="@+id/ll_sex"
                 android:layout_marginTop="19dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -114,26 +118,29 @@
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:layout_marginTop="19dp">
+
                 <RelativeLayout
+                    android:id="@+id/rl_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:id="@+id/rl_nickname">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="昵称"
-                        android:textSize="16dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"/>
+                    android:background="?android:attr/selectableItemBackground">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="蒋朝任"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="昵称"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_nick_name"
                         android:layout_toLeftOf="@+id/img_arrow"
-                        android:layout_centerVertical="true" />
+                        android:text="蒋朝任" />
 
                     <ImageView
                         android:id="@+id/img_arrow"
@@ -141,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow_right"/>
+                        android:src="@drawable/ic_arrow_right" />
                 </RelativeLayout>
             </LinearLayout>
 

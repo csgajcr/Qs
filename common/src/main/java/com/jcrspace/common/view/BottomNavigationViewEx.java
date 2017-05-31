@@ -24,6 +24,10 @@ import java.lang.reflect.Field;
  * Created by jiangchaoren on 2017/3/27.
  */
 
+/**
+ * 一个扩展的MD风格官方控件
+ * 代码来自github
+ */
 public class BottomNavigationViewEx extends BottomNavigationView {
     // used for animation
     private int mShiftAmount;

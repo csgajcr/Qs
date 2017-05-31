@@ -2,18 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_recent"
+        android:id="@+id/navigation_bill"
         android:icon="@drawable/ic_nav_bill"
-        android:title="最近" />
+        android:title="账单" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="功能" />
+        android:id="@+id/navigation_plan"
+        android:icon="@drawable/ic_nav_plan"
+        android:title="统计" />
+
+    <item
+        android:id="@+id/navigation_recommend"
+        android:icon="@drawable/ic_nav_recommend"
+        android:title="推荐" />
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_nav_account"
+        android:icon="@drawable/ic_nav_user"
         android:title="我" />
+
+
 
 </menu>

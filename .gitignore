@@ -13,3 +13,7 @@ common/build/
 \.idea/
 
 \.gradle/
+
+manager_statistics/build/
+
+ui_statistics/build/

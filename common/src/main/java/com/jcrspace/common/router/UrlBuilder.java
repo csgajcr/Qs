@@ -10,6 +10,10 @@ import com.jcrspace.common.config.QsCommonConfig;
  * Created by jiangchaoren on 2017/2/27.
  */
 
+/**
+ * Uri路由跳转类
+ * 用户Activity之间的跳转
+ */
 public class UrlBuilder {
 
     private Activity activity;
@@ -35,8 +39,18 @@ public class UrlBuilder {
         return this;
     }
 
+    public UrlBuilder putParams(String key, String val) {
+        if (val == null) {
+            return this;
+        }
+        uriBuilder.appendQueryParameter(key, val);
+        return this;
+    }
+
+
     public void startActivity(){
         Uri uri = uriBuilder.build();
+
         final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         activity.runOnUiThread(new Runnable() {
             @Override
