@@ -28,6 +28,7 @@ import com.jcrspace.manager_account.event.RegisterCompleteEvent;
 import com.jcrspace.manager_bill.event.BillListRefreshEvent;
 import com.jcrspace.ui_account.R;
 import com.jcrspace.ui_account.facade.LoginFacade;
+import com.jcrspace.ui_account.listener.DownloadBillListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -130,6 +131,27 @@ public class LoginActivity extends BaseAppCompatActivity {
         super.onDestroy();
     }
 
+    public void downloadBillFromServer(){
+        final LoadingDialog dialog = new LoadingDialog(this);
+        dialog.setCancelable(false);
+        dialog.setLoadingText(getString(R.string.downloading_bill));
+        dialog.show();
+        facade.getAllBillFromServer(new DownloadBillListener() {
+            @Override
+            public void onSuccess() {
+                EventBus.getDefault().post(new BillListRefreshEvent());
+                dialog.dismiss();
+                finish();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+    }
+
     /**
      * 登录完成,根据当前状态判断是否需要合并账单
      * @param event
@@ -152,13 +174,17 @@ public class LoginActivity extends BaseAppCompatActivity {
                 dialog.setOnNegativeClickListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+                        downloadBillFromServer();
                     }
                 });
                 dialog.setCancelable(false);
                 dialog.show();
             } else {
-                finish();
+                if (!facade.isHaveLocalData()){
+                    downloadBillFromServer();
+                } else {
+                    finish();
+                }
             }
         } else {
             ToastUtils.showShortToast(event.errorMessage);

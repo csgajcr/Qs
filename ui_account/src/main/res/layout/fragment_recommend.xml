@@ -30,12 +30,14 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:visibility="visible">
+
                     <TextView
+                        android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/error_network_not_connect"/>
+                        android:text="@string/error_network_not_connect" />
                 </FrameLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,6 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp">
 

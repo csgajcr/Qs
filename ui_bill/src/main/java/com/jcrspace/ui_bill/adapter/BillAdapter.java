@@ -23,6 +23,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
     private Context context;
     public List<BillVO> billVOList;
     private OnItemLongClickListener onItemLongClickListener;
+    private OnItemClickListener onItemClickListener;
 
     public BillAdapter(Context context,List<BillVO> billVOList) {
         this.context = context;
@@ -66,6 +67,10 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @Override
     public int getItemCount() {
         return billVOList.size();
@@ -92,7 +97,9 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if (onItemClickListener!=null){
+                        onItemClickListener.onClick(billVOList.get(getAdapterPosition()-1),getAdapterPosition()-1);
+                    }
                 }
             });
             tvType = (TextView) itemView.findViewById(R.id.tv_type);
@@ -105,6 +112,10 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.ViewHolder> {
 
     public interface OnItemLongClickListener{
         void onLongClick(BillVO billVO,int position);
+    }
+
+    public interface OnItemClickListener{
+        void onClick(BillVO billVO,int position);
     }
 
     public void setBillVOList(List<BillVO> billVOList) {

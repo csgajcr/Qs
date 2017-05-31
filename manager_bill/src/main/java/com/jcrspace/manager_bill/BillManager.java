@@ -50,7 +50,7 @@ public class BillManager extends BaseManager {
     }
 
     public void updateBill(BillDO billDO) throws DbException {
-        dbManager.saveOrUpdate(billDO);
+        dbManager.update(billDO);
     }
 
     public void insertBill(BillDO billDO) throws DbException {
@@ -198,54 +198,7 @@ public class BillManager extends BaseManager {
                 }
             }
         };
-
-
-
-
         getAllBillFromServer(queryListener);
-        /**
-         * 50条单次请求限制，分段发多次请求
-         */
-//        if (billSOList.size() > 50) {
-//            for (int i = 0; i < billSOList.size(); i = i + 50) {
-//                List<BmobObject> convertBillSOList;
-//                if (billSOList.size() - i >= 50) {
-//                    convertBillSOList = billSOList.subList(i, i + 50);
-//
-//                } else {
-//                    convertBillSOList = billSOList.subList(i, billSOList.size());
-//                }
-//                new BmobBatch().insertBatch(convertBillSOList).doBatch(new QueryListListener<BatchResult>() {
-//                    @Override
-//                    public void done(List<BatchResult> list, BmobException e) {
-//                        BatchResult result = list.get(0);
-//
-//                    }
-//                });
-//            }
-//        } else {
-        /**
-         * Bmob云数据库和本地数据库同步数据，云数据库太坑，所以这里的做法很投机，没有考虑
-         * 两次请求失败的一次情况，代码不够严谨。不过真没想到什么好办法。
-         */
-//            List<BmobObject> updateBillSOList = new ArrayList<>();
-//            for (BmobObject so:billSOList){
-//                if (!so.getObjectId().equals("")){
-//                    updateBillSOList.add(so);
-//                }
-//            }
-//            if (updateBillSOList.size()>0){
-//                new BmobBatch().updateBatch(updateBillSOList).doBatch(new QueryListListener<BatchResult>() {
-//                    @Override
-//                    public void done(List<BatchResult> list, BmobException e) {
-//
-//                    }
-//                });
-//            }
-
-
-//            new BmobBatch().insertBatch(billSOList).doBatch(listener);
-//        }
 
     }
 

@@ -201,6 +201,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onChangeNicknameEvent(ChangeNicknameEvent event){
         tvNickName.setText(event.accountDO.nick_name);
+        facade.refreshCurrentAccount();
     }
 
 

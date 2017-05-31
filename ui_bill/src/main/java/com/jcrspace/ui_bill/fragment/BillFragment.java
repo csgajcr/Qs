@@ -18,6 +18,7 @@ import com.jcrspace.common.view.BaseFragment;
 import com.jcrspace.manager_account.event.LoginCompleteEvent;
 import com.jcrspace.manager_bill.event.AddBillSuccessEvent;
 import com.jcrspace.manager_bill.event.BillListRefreshEvent;
+import com.jcrspace.manager_bill.event.ModifyBillSuccessEvent;
 import com.jcrspace.manager_statistics.event.RefreshChartEvent;
 import com.jcrspace.ui_bill.R;
 import com.jcrspace.ui_bill.adapter.BillAdapter;
@@ -97,6 +98,22 @@ public class BillFragment extends BaseFragment{
                 dialog.show();
             }
         });
+        adapter.setOnItemClickListener(new BillAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(BillVO billVO, int position) {
+                UrlBuilder.build(getActivity(),ActivityUrls.MODIFYBILL).putParams("id", String.valueOf(billVO.billDO.id))
+                        .putParams("type", String.valueOf(billVO.billDO.type))
+                        .putParams("title",billVO.billDO.title)
+                        .putParams("status", String.valueOf(billVO.billDO.status))
+                        .putParams("bid", String.valueOf(billVO.billDO.bid))
+                        .putParams("comment",billVO.billDO.comment)
+                        .putParams("create_time",Long.toString(billVO.billDO.create_time))
+                        .putParams("money",Float.toString(billVO.billDO.money))
+                        .putParams("objectId",billVO.billDO.objectId)
+                        .putParams("username",billVO.billDO.username)
+                        .startActivity();
+            }
+        });
         rvBill.setEmptyView(flEmptyView);
     }
 
@@ -117,5 +134,10 @@ public class BillFragment extends BaseFragment{
         adapter.setBillVOList(billFacade.billVOList);
         adapter.notifyDataSetChanged();
         EventBus.getDefault().post(new RefreshChartEvent());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onModifyBillSuccessEvent(ModifyBillSuccessEvent event){
+        onBillListRefreshEvent(new BillListRefreshEvent());
     }
 }

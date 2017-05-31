@@ -11,6 +11,7 @@ public class ActivityUrls {
     public static final String SETTING = "setting";//设置界面
     public static final String LOGIN = "login";//登录界面
     public static final String REGISTER = "register";//注册界面
+    public static final String MODIFYBILL = "bill/modify";//编辑账单
 
     public static final String CHANGE_NICKNAME = "account/change_nickname"; //修改昵称界面
     public static final String CHANGE_PASSWORD = "account/change_password";//修改密码界面

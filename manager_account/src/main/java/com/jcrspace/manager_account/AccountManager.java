@@ -124,6 +124,7 @@ public class AccountManager extends BaseManager{
         accountSO.update(accountDO.objectID,listener);
     }
 
+
     public AccountSO convert(AccountDO accountDO){
         AccountSO so = new AccountSO();
         so.id = accountDO.aid;

@@ -21,6 +21,7 @@ import com.jcrspace.manager_bill.model.BillDO;
 import com.jcrspace.manager_bill.model.BillSO;
 import com.jcrspace.manager_bill.model.BillSOList;
 import com.jcrspace.ui_account.R;
+import com.jcrspace.ui_account.listener.DownloadBillListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -84,8 +85,6 @@ public class LoginFacade extends BaseFacade {
                                 try {
                                     accountManager.createUserInfo(new AccountDO(accountSO));
                                     accountManager.setAutoLoginUser(accountSO.mobile);
-                                    //TODO 拉取服务器账单
-
                                 } catch (DbException e1) {
                                     e1.printStackTrace();
                                 }
@@ -141,6 +140,56 @@ public class LoginFacade extends BaseFacade {
             dbManager.dropTable(BillDO.class);
         } catch (DbException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void getAllBillFromServer(final DownloadBillListener listener){
+        billManager.getAllBillFromServer(new QueryListener<JSONArray>() {
+            @Override
+            public void done(JSONArray jsonArray, BmobException e) {
+                if (e != null) {
+                    if (listener != null) {
+                        listener.onError(e);
+                    }
+                    return;
+                }
+                Gson gson = new Gson();
+                final BillSOList bmobBillSOList = gson.fromJson("{billSOList:" + jsonArray.toString() + "} ", BillSOList.class);
+                List<BillSO> list = bmobBillSOList.billSOList;
+                List<BillDO> billDOList = new ArrayList<>();
+                if (list.size()==0){
+                    listener.onSuccess();
+                    return;
+                }
+                for (BillSO billSO:list){
+                    billDOList.add(new BillDO(billSO));
+                }
+                try {
+                    billManager.saveBillList(billDOList);
+                    listener.onSuccess();
+                } catch (DbException e1) {
+                    e1.printStackTrace();
+                    listener.onError(e1);
+                }
+            }
+        });
+    }
+
+    /**
+     * 是否拥有本地数据
+     * @return
+     */
+    public boolean isHaveLocalData(){
+        try {
+            List<BillDO> billDOs = billManager.getBillList();
+            if (billDOs.size()>0){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

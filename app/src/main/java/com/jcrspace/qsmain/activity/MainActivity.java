@@ -1,5 +1,6 @@
 package com.jcrspace.qsmain.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,13 +15,22 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ConstUtils;
 import com.blankj.utilcode.utils.ToastUtils;
+import com.google.gson.Gson;
 import com.jcrspace.common.Qs;
+import com.jcrspace.common.config.ActivityUrls;
 import com.jcrspace.common.config.QsCommonConfig;
 import com.jcrspace.common.dialog.LoadingDialog;
 import com.jcrspace.common.dialog.TipDialog;
 import com.jcrspace.common.lander.UserLander;
+import com.jcrspace.common.manager.TokenManager;
+import com.jcrspace.common.router.UrlBuilder;
 import com.jcrspace.common.view.BaseAppCompatActivity;
 import com.jcrspace.common.view.BottomNavigationViewEx;
+import com.jcrspace.manager_account.AccountManager;
+import com.jcrspace.manager_account.event.LoginCompleteEvent;
+import com.jcrspace.manager_account.event.LogoutEvent;
+import com.jcrspace.manager_account.model.AccountSO;
+import com.jcrspace.manager_account.model.AccountSOList;
 import com.jcrspace.manager_bill.BillManager;
 import com.jcrspace.manager_bill.listener.SyncCompleteListener;
 import com.jcrspace.manager_bill.model.BillDO;
@@ -35,6 +45,7 @@ import com.jcrspace.ui_statistics.fragment.StatisticsFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
@@ -43,6 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 
 public class MainActivity extends BaseAppCompatActivity {
 
@@ -154,6 +166,42 @@ public class MainActivity extends BaseAppCompatActivity {
                 Qs.getConfigSharedPreferences().edit().putLong(QsCommonConfig.SP_LAST_SYNC_TIME,System.currentTimeMillis()).apply();
             }
         }
+        /**
+         * 判断多终端登录
+         */
+        if (!getLander().getId().equals(UserLander.DEFAULT_LOCAL_USER_ID)){
+            final AccountManager accountManager = new AccountManager(getLander());
+            accountManager.findAccountFromServer(getLander().getId(), new QueryListener<JSONArray>() {
+                @Override
+                public void done(JSONArray jsonArray, BmobException e) {
+                    if (e!=null){
+                        return;
+                    }
+                    Gson gson = new Gson();
+                    final AccountSOList accountList = gson.fromJson("{accountSOList:"+jsonArray.toString()+"} ",AccountSOList.class);
+                    List<AccountSO> list = accountList.accountSOList;
+                    if (list.size()>0){
+                        AccountSO accountSO = list.get(0);
+                        if (!accountSO.device_token.equals(TokenManager.calcToken(getLander().getId()))){
+                            //Token验证失败，强制退出登录
+                            TipDialog dialog = new TipDialog(MainActivity.this,getString(R.string.mutidevice_login));
+                            dialog.setCancelable(false);
+                            dialog.setOnClickListener(new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    UrlBuilder.build(MainActivity.this, ActivityUrls.LOGIN).startActivity();
+                                }
+                            });
+                            dialog.show();
+                            accountManager.logout();
+                            EventBus.getDefault().post(new LogoutEvent());
+
+                        }
+                    }
+                }
+            });
+        }
+
     }
 
     private void startSync(){
@@ -245,5 +293,6 @@ public class MainActivity extends BaseAppCompatActivity {
             ToastUtils.showShortToast(event.errorMessage);
         }
     }
+
 
 }
